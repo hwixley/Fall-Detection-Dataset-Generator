@@ -1,0 +1,525 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		58ADCD48E69B062ECD0E732C /* Pods_FD_dataset_generator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A986CF326ADF38DAD8786E8 /* Pods_FD_dataset_generator.framework */; };
+		D0216FBE269485DA008E21A9 /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0216FBD269485DA008E21A9 /* Recording.swift */; };
+		D0216FC12694C03F008E21A9 /* MyConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0216FC02694C03F008E21A9 /* MyConstants.swift */; };
+		D0216FC32694EAAD008E21A9 /* AddUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0216FC22694EAAD008E21A9 /* AddUserViewController.swift */; };
+		D0216FC52694EABB008E21A9 /* SearchSubjectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0216FC42694EABB008E21A9 /* SearchSubjectsViewController.swift */; };
+		D0216FC72694EAC1008E21A9 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0216FC62694EAC1008E21A9 /* MenuViewController.swift */; };
+		D0290D8826946B1400BE3900 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0290D8726946B1400BE3900 /* AppDelegate.swift */; };
+		D0290D8A26946B1400BE3900 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0290D8926946B1400BE3900 /* SceneDelegate.swift */; };
+		D0290D8C26946B1400BE3900 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0290D8B26946B1400BE3900 /* ViewController.swift */; };
+		D0290D9426946B1400BE3900 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0290D9226946B1400BE3900 /* LaunchScreen.storyboard */; };
+		D0848DEA277DE12000117AFC /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0848DE9277DE12000117AFC /* GameKit.framework */; };
+		D0857D962699FC6300510F12 /* RecordingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0857D952699FC6300510F12 /* RecordingTableViewCell.swift */; };
+		D0857D98269F543500510F12 /* LiveSensorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0857D97269F543500510F12 /* LiveSensorsViewController.swift */; };
+		D086304A26D67E33001B640C /* mnSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D086304926D67E33001B640C /* mnSettingsViewController.swift */; };
+		D09DE5A926946E97008B5EB9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D09DE5A826946E97008B5EB9 /* GoogleService-Info.plist */; };
+		D09DE5B326946FA9008B5EB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D09DE5B126946FA9008B5EB9 /* Main.storyboard */; };
+		D09DE5B52694700D008B5EB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D09DE5B42694700D008B5EB9 /* Assets.xcassets */; };
+		D09DE5B726947042008B5EB9 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09DE5B626947042008B5EB9 /* StartViewController.swift */; };
+		D09DE5B92694704A008B5EB9 /* PrepareRecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09DE5B82694704A008B5EB9 /* PrepareRecordingViewController.swift */; };
+		D09DE5BB26947050008B5EB9 /* RecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09DE5BA26947050008B5EB9 /* RecordingViewController.swift */; };
+		D0DCBC18276E2107001006C7 /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DCBC17276E2107001006C7 /* ConnectViewController.swift */; };
+		D0DCBC1A276E5F58001006C7 /* PolarBleSdkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DCBC19276E5F58001006C7 /* PolarBleSdkManager.swift */; };
+		D0DCBC1C276E61E8001006C7 /* PolarConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DCBC1B276E61E8001006C7 /* PolarConnectionView.swift */; };
+		D0DCBC20276F6B7A001006C7 /* PolarDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DCBC1F276F6B7A001006C7 /* PolarDataView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		5A1426066BDA4296674C343E /* Pods-FD-dataset-generator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FD-dataset-generator.debug.xcconfig"; path = "Target Support Files/Pods-FD-dataset-generator/Pods-FD-dataset-generator.debug.xcconfig"; sourceTree = "<group>"; };
+		6A986CF326ADF38DAD8786E8 /* Pods_FD_dataset_generator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FD_dataset_generator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		927C8E3FB1529A65DB2AD449 /* Pods-FD-dataset-generator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FD-dataset-generator.release.xcconfig"; path = "Target Support Files/Pods-FD-dataset-generator/Pods-FD-dataset-generator.release.xcconfig"; sourceTree = "<group>"; };
+		D0216FBD269485DA008E21A9 /* Recording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
+		D0216FC02694C03F008E21A9 /* MyConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyConstants.swift; sourceTree = "<group>"; };
+		D0216FC22694EAAD008E21A9 /* AddUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserViewController.swift; sourceTree = "<group>"; };
+		D0216FC42694EABB008E21A9 /* SearchSubjectsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSubjectsViewController.swift; sourceTree = "<group>"; };
+		D0216FC62694EAC1008E21A9 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		D0290D8426946B1400BE3900 /* FD-dataset-generator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FD-dataset-generator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0290D8726946B1400BE3900 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D0290D8926946B1400BE3900 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		D0290D8B26946B1400BE3900 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D0290D9326946B1400BE3900 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D0290D9526946B1400BE3900 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D0848DE9277DE12000117AFC /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		D0848DEB277DE12600117AFC /* FD-dataset-generator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "FD-dataset-generator.entitlements"; sourceTree = "<group>"; };
+		D0857D952699FC6300510F12 /* RecordingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingTableViewCell.swift; sourceTree = "<group>"; };
+		D0857D97269F543500510F12 /* LiveSensorsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveSensorsViewController.swift; sourceTree = "<group>"; };
+		D086304926D67E33001B640C /* mnSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mnSettingsViewController.swift; sourceTree = "<group>"; };
+		D09DE5A826946E97008B5EB9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D09DE5B226946FA9008B5EB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "../../fall-detection-dataset-generator/fall-detection-dataset-generator/Base.lproj/Main.storyboard"; sourceTree = "<group>"; };
+		D09DE5B42694700D008B5EB9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../fall-detection-dataset-generator/fall-detection-dataset-generator/Assets.xcassets"; sourceTree = "<group>"; };
+		D09DE5B626947042008B5EB9 /* StartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		D09DE5B82694704A008B5EB9 /* PrepareRecordingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrepareRecordingViewController.swift; sourceTree = "<group>"; };
+		D09DE5BA26947050008B5EB9 /* RecordingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecordingViewController.swift; path = "FD-dataset-generator/ViewControllers/RecordingViewController.swift"; sourceTree = SOURCE_ROOT; };
+		D0DCBC17276E2107001006C7 /* ConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectViewController.swift; sourceTree = "<group>"; };
+		D0DCBC19276E5F58001006C7 /* PolarBleSdkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolarBleSdkManager.swift; sourceTree = "<group>"; };
+		D0DCBC1B276E61E8001006C7 /* PolarConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolarConnectionView.swift; sourceTree = "<group>"; };
+		D0DCBC1F276F6B7A001006C7 /* PolarDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolarDataView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D0290D8126946B1400BE3900 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				58ADCD48E69B062ECD0E732C /* Pods_FD_dataset_generator.framework in Frameworks */,
+				D0848DEA277DE12000117AFC /* GameKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		27CE529C6D92C5448F5E9237 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5A1426066BDA4296674C343E /* Pods-FD-dataset-generator.debug.xcconfig */,
+				927C8E3FB1529A65DB2AD449 /* Pods-FD-dataset-generator.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		5145273739FD123F9050A2F2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D0848DE9277DE12000117AFC /* GameKit.framework */,
+				6A986CF326ADF38DAD8786E8 /* Pods_FD_dataset_generator.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D0216FBC269485C4008E21A9 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				D0216FBD269485DA008E21A9 /* Recording.swift */,
+				D0DCBC19276E5F58001006C7 /* PolarBleSdkManager.swift */,
+				D0DCBC1B276E61E8001006C7 /* PolarConnectionView.swift */,
+				D0DCBC1F276F6B7A001006C7 /* PolarDataView.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		D0216FBF2694C01D008E21A9 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				D0216FC02694C03F008E21A9 /* MyConstants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		D0290D7B26946B1400BE3900 = {
+			isa = PBXGroup;
+			children = (
+				D0290D8626946B1400BE3900 /* FD-dataset-generator */,
+				D0290D8526946B1400BE3900 /* Products */,
+				27CE529C6D92C5448F5E9237 /* Pods */,
+				5145273739FD123F9050A2F2 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D0290D8526946B1400BE3900 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D0290D8426946B1400BE3900 /* FD-dataset-generator.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D0290D8626946B1400BE3900 /* FD-dataset-generator */ = {
+			isa = PBXGroup;
+			children = (
+				D0848DEB277DE12600117AFC /* FD-dataset-generator.entitlements */,
+				D0857D942699FC3D00510F12 /* ComponentClasses */,
+				D0216FBF2694C01D008E21A9 /* Constants */,
+				D0216FBC269485C4008E21A9 /* Classes */,
+				D09DE5AA26946EA0008B5EB9 /* ViewControllers */,
+				D0290D8726946B1400BE3900 /* AppDelegate.swift */,
+				D0290D8926946B1400BE3900 /* SceneDelegate.swift */,
+				D0290D8B26946B1400BE3900 /* ViewController.swift */,
+				D09DE5B126946FA9008B5EB9 /* Main.storyboard */,
+				D09DE5B42694700D008B5EB9 /* Assets.xcassets */,
+				D0290D9226946B1400BE3900 /* LaunchScreen.storyboard */,
+				D09DE5A826946E97008B5EB9 /* GoogleService-Info.plist */,
+				D0290D9526946B1400BE3900 /* Info.plist */,
+			);
+			path = "FD-dataset-generator";
+			sourceTree = "<group>";
+		};
+		D0857D942699FC3D00510F12 /* ComponentClasses */ = {
+			isa = PBXGroup;
+			children = (
+				D0857D952699FC6300510F12 /* RecordingTableViewCell.swift */,
+			);
+			path = ComponentClasses;
+			sourceTree = "<group>";
+		};
+		D09DE5AA26946EA0008B5EB9 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D09DE5B626947042008B5EB9 /* StartViewController.swift */,
+				D09DE5BA26947050008B5EB9 /* RecordingViewController.swift */,
+				D09DE5B82694704A008B5EB9 /* PrepareRecordingViewController.swift */,
+				D0216FC22694EAAD008E21A9 /* AddUserViewController.swift */,
+				D0216FC42694EABB008E21A9 /* SearchSubjectsViewController.swift */,
+				D0216FC62694EAC1008E21A9 /* MenuViewController.swift */,
+				D0857D97269F543500510F12 /* LiveSensorsViewController.swift */,
+				D086304926D67E33001B640C /* mnSettingsViewController.swift */,
+				D0DCBC17276E2107001006C7 /* ConnectViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D0290D8326946B1400BE3900 /* FD-dataset-generator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D0290D9826946B1400BE3900 /* Build configuration list for PBXNativeTarget "FD-dataset-generator" */;
+			buildPhases = (
+				A78684DACB27B6CE610999CD /* [CP] Check Pods Manifest.lock */,
+				D0290D8026946B1400BE3900 /* Sources */,
+				D0290D8126946B1400BE3900 /* Frameworks */,
+				D0290D8226946B1400BE3900 /* Resources */,
+				850B9418B6AA0B620E27799A /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "FD-dataset-generator";
+			productName = "FD-dataset-generator";
+			productReference = D0290D8426946B1400BE3900 /* FD-dataset-generator.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D0290D7C26946B1400BE3900 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1250;
+				LastUpgradeCheck = 1250;
+				TargetAttributes = {
+					D0290D8326946B1400BE3900 = {
+						CreatedOnToolsVersion = 12.5;
+					};
+				};
+			};
+			buildConfigurationList = D0290D7F26946B1400BE3900 /* Build configuration list for PBXProject "FD-dataset-generator" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D0290D7B26946B1400BE3900;
+			productRefGroup = D0290D8526946B1400BE3900 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D0290D8326946B1400BE3900 /* FD-dataset-generator */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D0290D8226946B1400BE3900 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0290D9426946B1400BE3900 /* LaunchScreen.storyboard in Resources */,
+				D09DE5B326946FA9008B5EB9 /* Main.storyboard in Resources */,
+				D09DE5A926946E97008B5EB9 /* GoogleService-Info.plist in Resources */,
+				D09DE5B52694700D008B5EB9 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		850B9418B6AA0B620E27799A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FD-dataset-generator/Pods-FD-dataset-generator-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FD-dataset-generator/Pods-FD-dataset-generator-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FD-dataset-generator/Pods-FD-dataset-generator-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A78684DACB27B6CE610999CD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FD-dataset-generator-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D0290D8026946B1400BE3900 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0DCBC18276E2107001006C7 /* ConnectViewController.swift in Sources */,
+				D0216FBE269485DA008E21A9 /* Recording.swift in Sources */,
+				D0216FC52694EABB008E21A9 /* SearchSubjectsViewController.swift in Sources */,
+				D0857D98269F543500510F12 /* LiveSensorsViewController.swift in Sources */,
+				D0216FC32694EAAD008E21A9 /* AddUserViewController.swift in Sources */,
+				D0DCBC20276F6B7A001006C7 /* PolarDataView.swift in Sources */,
+				D0290D8C26946B1400BE3900 /* ViewController.swift in Sources */,
+				D0DCBC1A276E5F58001006C7 /* PolarBleSdkManager.swift in Sources */,
+				D0DCBC1C276E61E8001006C7 /* PolarConnectionView.swift in Sources */,
+				D0216FC72694EAC1008E21A9 /* MenuViewController.swift in Sources */,
+				D09DE5BB26947050008B5EB9 /* RecordingViewController.swift in Sources */,
+				D09DE5B726947042008B5EB9 /* StartViewController.swift in Sources */,
+				D0857D962699FC6300510F12 /* RecordingTableViewCell.swift in Sources */,
+				D09DE5B92694704A008B5EB9 /* PrepareRecordingViewController.swift in Sources */,
+				D0290D8826946B1400BE3900 /* AppDelegate.swift in Sources */,
+				D0290D8A26946B1400BE3900 /* SceneDelegate.swift in Sources */,
+				D086304A26D67E33001B640C /* mnSettingsViewController.swift in Sources */,
+				D0216FC12694C03F008E21A9 /* MyConstants.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D0290D9226946B1400BE3900 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D0290D9326946B1400BE3900 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D09DE5B126946FA9008B5EB9 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D09DE5B226946FA9008B5EB9 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D0290D9626946B1400BE3900 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D0290D9726946B1400BE3900 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D0290D9926946B1400BE3900 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5A1426066BDA4296674C343E /* Pods-FD-dataset-generator.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4KJDTQP569;
+				EXCLUDED_ARCHS = "";
+				INFOPLIST_FILE = "FD-dataset-generator/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "ug4-honours-project.FD-dataset-generator";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		D0290D9A26946B1400BE3900 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 927C8E3FB1529A65DB2AD449 /* Pods-FD-dataset-generator.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4KJDTQP569;
+				EXCLUDED_ARCHS = "";
+				INFOPLIST_FILE = "FD-dataset-generator/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "ug4-honours-project.FD-dataset-generator";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D0290D7F26946B1400BE3900 /* Build configuration list for PBXProject "FD-dataset-generator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0290D9626946B1400BE3900 /* Debug */,
+				D0290D9726946B1400BE3900 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D0290D9826946B1400BE3900 /* Build configuration list for PBXNativeTarget "FD-dataset-generator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0290D9926946B1400BE3900 /* Debug */,
+				D0290D9A26946B1400BE3900 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D0290D7C26946B1400BE3900 /* Project object */;
+}
