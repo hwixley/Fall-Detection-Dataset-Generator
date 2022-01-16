@@ -1,0 +1,6 @@
+framework module Pods_LH_FDDG {
+  umbrella header "Pods-LH-FDDG-umbrella.h"
+
+  export *
+  module * { export * }
+}

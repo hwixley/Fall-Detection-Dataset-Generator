@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Firebase
 
 class SearchSubjectsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
@@ -140,6 +139,7 @@ class SearchSubjectsViewController: UIViewController, UITableViewDelegate, UITab
         if subjectID != "" {
             self.tableView.allowsSelection = true
             
+            /*
             Firestore.firestore().collection("subjects").document(subjectID).collection("recordingStats").document("root").getDocument { docSnapshot, e in
                 if e == nil && docSnapshot != nil && docSnapshot!.data() != nil {
                     self.recordings = []
@@ -168,10 +168,10 @@ class SearchSubjectsViewController: UIViewController, UITableViewDelegate, UITab
                     self.recordings = []
                     self.tableView.reloadData()
                 }
-            }
+            }*/
         } else {
             self.tableView.allowsSelection = false
-            
+            /*
             Firestore.firestore().collection("stats").document("root").addSnapshotListener({ docSnapshot, e in
                 if e == nil && docSnapshot != nil {
                     self.recordings = []
@@ -200,7 +200,7 @@ class SearchSubjectsViewController: UIViewController, UITableViewDelegate, UITab
                     self.navigationItem.prompt = "fuck"
                     print(e!.localizedDescription)
                 }
-            })
+            })*/
         }
     }
     

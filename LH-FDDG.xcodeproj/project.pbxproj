@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		58ADCD48E69B062ECD0E732C /* Pods_FD_dataset_generator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A986CF326ADF38DAD8786E8 /* Pods_FD_dataset_generator.framework */; };
+		26A429B35B268F0B3F7804DA /* Pods_LH_FDDG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06FDAB7FF250F9BD7131ABC9 /* Pods_LH_FDDG.framework */; };
 		D0216FBE269485DA008E21A9 /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0216FBD269485DA008E21A9 /* Recording.swift */; };
 		D0216FC12694C03F008E21A9 /* MyConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0216FC02694C03F008E21A9 /* MyConstants.swift */; };
 		D0216FC32694EAAD008E21A9 /* AddUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0216FC22694EAAD008E21A9 /* AddUserViewController.swift */; };
@@ -34,22 +34,24 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		06FDAB7FF250F9BD7131ABC9 /* Pods_LH_FDDG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LH_FDDG.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A1426066BDA4296674C343E /* Pods-FD-dataset-generator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FD-dataset-generator.debug.xcconfig"; path = "Target Support Files/Pods-FD-dataset-generator/Pods-FD-dataset-generator.debug.xcconfig"; sourceTree = "<group>"; };
-		6A986CF326ADF38DAD8786E8 /* Pods_FD_dataset_generator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FD_dataset_generator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E5D98EDE7D63A67E99B7A42 /* Pods-LH-FDDG.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LH-FDDG.debug.xcconfig"; path = "Target Support Files/Pods-LH-FDDG/Pods-LH-FDDG.debug.xcconfig"; sourceTree = "<group>"; };
 		927C8E3FB1529A65DB2AD449 /* Pods-FD-dataset-generator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FD-dataset-generator.release.xcconfig"; path = "Target Support Files/Pods-FD-dataset-generator/Pods-FD-dataset-generator.release.xcconfig"; sourceTree = "<group>"; };
+		BC97A33FDEC936C01B29BD0D /* Pods-LH-FDDG.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LH-FDDG.release.xcconfig"; path = "Target Support Files/Pods-LH-FDDG/Pods-LH-FDDG.release.xcconfig"; sourceTree = "<group>"; };
 		D0216FBD269485DA008E21A9 /* Recording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
 		D0216FC02694C03F008E21A9 /* MyConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyConstants.swift; sourceTree = "<group>"; };
 		D0216FC22694EAAD008E21A9 /* AddUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserViewController.swift; sourceTree = "<group>"; };
 		D0216FC42694EABB008E21A9 /* SearchSubjectsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSubjectsViewController.swift; sourceTree = "<group>"; };
 		D0216FC62694EAC1008E21A9 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
-		D0290D8426946B1400BE3900 /* FD-dataset-generator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FD-dataset-generator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0290D8426946B1400BE3900 /* LH-FDDG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LH-FDDG.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0290D8726946B1400BE3900 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0290D8926946B1400BE3900 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		D0290D8B26946B1400BE3900 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D0290D9326946B1400BE3900 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D0290D9526946B1400BE3900 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0848DE9277DE12000117AFC /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
-		D0848DEB277DE12600117AFC /* FD-dataset-generator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "FD-dataset-generator.entitlements"; sourceTree = "<group>"; };
+		D0848DEB277DE12600117AFC /* LH-FDDG.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "LH-FDDG.entitlements"; sourceTree = "<group>"; };
 		D0857D952699FC6300510F12 /* RecordingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingTableViewCell.swift; sourceTree = "<group>"; };
 		D0857D97269F543500510F12 /* LiveSensorsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveSensorsViewController.swift; sourceTree = "<group>"; };
 		D086304926D67E33001B640C /* mnSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mnSettingsViewController.swift; sourceTree = "<group>"; };
@@ -58,7 +60,7 @@
 		D09DE5B42694700D008B5EB9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../fall-detection-dataset-generator/fall-detection-dataset-generator/Assets.xcassets"; sourceTree = "<group>"; };
 		D09DE5B626947042008B5EB9 /* StartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		D09DE5B82694704A008B5EB9 /* PrepareRecordingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrepareRecordingViewController.swift; sourceTree = "<group>"; };
-		D09DE5BA26947050008B5EB9 /* RecordingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecordingViewController.swift; path = "FD-dataset-generator/ViewControllers/RecordingViewController.swift"; sourceTree = SOURCE_ROOT; };
+		D09DE5BA26947050008B5EB9 /* RecordingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingViewController.swift; sourceTree = "<group>"; };
 		D0DCBC17276E2107001006C7 /* ConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectViewController.swift; sourceTree = "<group>"; };
 		D0DCBC19276E5F58001006C7 /* PolarBleSdkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolarBleSdkManager.swift; sourceTree = "<group>"; };
 		D0DCBC1B276E61E8001006C7 /* PolarConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolarConnectionView.swift; sourceTree = "<group>"; };
@@ -70,8 +72,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				58ADCD48E69B062ECD0E732C /* Pods_FD_dataset_generator.framework in Frameworks */,
 				D0848DEA277DE12000117AFC /* GameKit.framework in Frameworks */,
+				26A429B35B268F0B3F7804DA /* Pods_LH_FDDG.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +85,8 @@
 			children = (
 				5A1426066BDA4296674C343E /* Pods-FD-dataset-generator.debug.xcconfig */,
 				927C8E3FB1529A65DB2AD449 /* Pods-FD-dataset-generator.release.xcconfig */,
+				6E5D98EDE7D63A67E99B7A42 /* Pods-LH-FDDG.debug.xcconfig */,
+				BC97A33FDEC936C01B29BD0D /* Pods-LH-FDDG.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -91,7 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				D0848DE9277DE12000117AFC /* GameKit.framework */,
-				6A986CF326ADF38DAD8786E8 /* Pods_FD_dataset_generator.framework */,
+				06FDAB7FF250F9BD7131ABC9 /* Pods_LH_FDDG.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -118,7 +122,7 @@
 		D0290D7B26946B1400BE3900 = {
 			isa = PBXGroup;
 			children = (
-				D0290D8626946B1400BE3900 /* FD-dataset-generator */,
+				D0290D8626946B1400BE3900 /* LH-FDDG */,
 				D0290D8526946B1400BE3900 /* Products */,
 				27CE529C6D92C5448F5E9237 /* Pods */,
 				5145273739FD123F9050A2F2 /* Frameworks */,
@@ -128,15 +132,15 @@
 		D0290D8526946B1400BE3900 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D0290D8426946B1400BE3900 /* FD-dataset-generator.app */,
+				D0290D8426946B1400BE3900 /* LH-FDDG.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D0290D8626946B1400BE3900 /* FD-dataset-generator */ = {
+		D0290D8626946B1400BE3900 /* LH-FDDG */ = {
 			isa = PBXGroup;
 			children = (
-				D0848DEB277DE12600117AFC /* FD-dataset-generator.entitlements */,
+				D0848DEB277DE12600117AFC /* LH-FDDG.entitlements */,
 				D0857D942699FC3D00510F12 /* ComponentClasses */,
 				D0216FBF2694C01D008E21A9 /* Constants */,
 				D0216FBC269485C4008E21A9 /* Classes */,
@@ -150,7 +154,7 @@
 				D09DE5A826946E97008B5EB9 /* GoogleService-Info.plist */,
 				D0290D9526946B1400BE3900 /* Info.plist */,
 			);
-			path = "FD-dataset-generator";
+			path = "LH-FDDG";
 			sourceTree = "<group>";
 		};
 		D0857D942699FC3D00510F12 /* ComponentClasses */ = {
@@ -180,9 +184,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D0290D8326946B1400BE3900 /* FD-dataset-generator */ = {
+		D0290D8326946B1400BE3900 /* LH-FDDG */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D0290D9826946B1400BE3900 /* Build configuration list for PBXNativeTarget "FD-dataset-generator" */;
+			buildConfigurationList = D0290D9826946B1400BE3900 /* Build configuration list for PBXNativeTarget "LH-FDDG" */;
 			buildPhases = (
 				A78684DACB27B6CE610999CD /* [CP] Check Pods Manifest.lock */,
 				D0290D8026946B1400BE3900 /* Sources */,
@@ -194,9 +198,9 @@
 			);
 			dependencies = (
 			);
-			name = "FD-dataset-generator";
+			name = "LH-FDDG";
 			productName = "FD-dataset-generator";
-			productReference = D0290D8426946B1400BE3900 /* FD-dataset-generator.app */;
+			productReference = D0290D8426946B1400BE3900 /* LH-FDDG.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -213,7 +217,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D0290D7F26946B1400BE3900 /* Build configuration list for PBXProject "FD-dataset-generator" */;
+			buildConfigurationList = D0290D7F26946B1400BE3900 /* Build configuration list for PBXProject "LH-FDDG" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -226,7 +230,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D0290D8326946B1400BE3900 /* FD-dataset-generator */,
+				D0290D8326946B1400BE3900 /* LH-FDDG */,
 			);
 		};
 /* End PBXProject section */
@@ -252,15 +256,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FD-dataset-generator/Pods-FD-dataset-generator-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-LH-FDDG/Pods-LH-FDDG-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FD-dataset-generator/Pods-FD-dataset-generator-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-LH-FDDG/Pods-LH-FDDG-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FD-dataset-generator/Pods-FD-dataset-generator-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LH-FDDG/Pods-LH-FDDG-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A78684DACB27B6CE610999CD /* [CP] Check Pods Manifest.lock */ = {
@@ -278,7 +282,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-FD-dataset-generator-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-LH-FDDG-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -453,7 +457,7 @@
 		};
 		D0290D9926946B1400BE3900 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5A1426066BDA4296674C343E /* Pods-FD-dataset-generator.debug.xcconfig */;
+			baseConfigurationReference = 6E5D98EDE7D63A67E99B7A42 /* Pods-LH-FDDG.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -467,7 +471,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "ug4-honours-project.FD-dataset-generator";
+				PRODUCT_BUNDLE_IDENTIFIER = "ug4-honours-project.lhfddg";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -477,7 +481,7 @@
 		};
 		D0290D9A26946B1400BE3900 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 927C8E3FB1529A65DB2AD449 /* Pods-FD-dataset-generator.release.xcconfig */;
+			baseConfigurationReference = BC97A33FDEC936C01B29BD0D /* Pods-LH-FDDG.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -491,7 +495,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "ug4-honours-project.FD-dataset-generator";
+				PRODUCT_BUNDLE_IDENTIFIER = "ug4-honours-project.lhfddg";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -501,7 +505,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D0290D7F26946B1400BE3900 /* Build configuration list for PBXProject "FD-dataset-generator" */ = {
+		D0290D7F26946B1400BE3900 /* Build configuration list for PBXProject "LH-FDDG" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D0290D9626946B1400BE3900 /* Debug */,
@@ -510,7 +514,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D0290D9826946B1400BE3900 /* Build configuration list for PBXNativeTarget "FD-dataset-generator" */ = {
+		D0290D9826946B1400BE3900 /* Build configuration list for PBXNativeTarget "LH-FDDG" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D0290D9926946B1400BE3900 /* Debug */,

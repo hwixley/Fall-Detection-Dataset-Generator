@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Firebase
 
 class AddUserViewController: UIViewController, UITextFieldDelegate {
     
@@ -57,6 +56,7 @@ class AddUserViewController: UIViewController, UITextFieldDelegate {
         }
         
         if validateInputs() {
+            /*
             Firestore.firestore().collection("subjects").document("root").getDocument { docSnapshot, err in
                 
                 if err == nil && docSnapshot != nil {
@@ -80,7 +80,7 @@ class AddUserViewController: UIViewController, UITextFieldDelegate {
                     self.genderSegmentedControl.selectedSegmentIndex = 0
                     self.conditionsTextfield.text = ""
                 }
-            }
+            }*/
         }
     }
     

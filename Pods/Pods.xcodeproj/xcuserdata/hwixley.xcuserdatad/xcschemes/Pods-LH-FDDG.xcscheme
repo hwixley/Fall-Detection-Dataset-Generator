@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "049E5791786AC4057EA9D71876A7A935"
-               BuildableName = "Pods_FD_dataset_generator.framework"
-               BlueprintName = "Pods-FD-dataset-generator"
+               BlueprintIdentifier = "FE1C9E9A5C8182266D4F63537F01B072"
+               BuildableName = "Pods_LH_FDDG.framework"
+               BlueprintName = "Pods-LH-FDDG"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

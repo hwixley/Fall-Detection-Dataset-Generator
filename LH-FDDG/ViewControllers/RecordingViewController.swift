@@ -8,7 +8,6 @@
 import UIKit
 import SwiftUI
 import AVFoundation
-import Firebase
 import CoreMotion
 
 class RecordingViewController: UIViewController {
@@ -139,25 +138,30 @@ class RecordingViewController: UIViewController {
     
     @IBAction func clickFinishRecording(_ sender: UIButton) {
         //Add to global stats
+        /*
         Firestore.firestore().collection("stats").document("root").getDocument { docSnapshot, e in
             
             if e == nil && docSnapshot != nil {
                 Firestore.firestore().collection("stats").document("root").updateData([formatStat(action: self.recordingInfo!.action, fall: self.recordingInfo!.fallType): docSnapshot!.data()![formatStat(action: self.recordingInfo!.action, fall: self.recordingInfo!.fallType)] as! Int + 1])
             }
         }
+         */
 
         //Add to subject stats
+        /*
         Firestore.firestore().collection("subjects").document(self.recordingInfo!.subjectId).collection("recordingStats").document("root").getDocument { docSnapshot, e in
             
             if e == nil && docSnapshot != nil {
                 Firestore.firestore().collection("subjects").document(self.recordingInfo!.subjectId).collection("recordingStats").document("root").updateData([formatStat(action: self.recordingInfo!.action, fall: self.recordingInfo!.fallType): docSnapshot!.data()![formatStat(action: self.recordingInfo!.action, fall: self.recordingInfo!.fallType)] as! Int + 1])
             }
-        }
+        }*/
 
         let collectionName = formatStat(action: self.recordingInfo!.action, fall: self.recordingInfo!.fallType)
         
         //Add recording
+        /*
         Firestore.firestore().collection("recordings").document("root").collection(collectionName).addDocument(data: ["subjectID": self.recordingInfo!.subjectId, "includesFall": self.recordingInfo!.includesFall, "fallType": self.recordingInfo!.fallType, "accelerometer-x": self.accDataX, "accelerometer-y": self.accDataY, "accelerometer-z": self.accDataZ, "gyroscope-x": self.gyroDataX, "gyroscope-y": self.gyroDataY, "gyroscope-z": self.gyroDataZ, "magnetometer-x": self.magDataX, "magnetometer-y": self.magDataY, "magnetometer-z": self.magDataZ, "magnetometer-acc": self.magDataAcc, "attitude-roll": self.attDataRoll, "attitude-pitch": self.attDataPitch, "attitude-yaw": self.attDataYaw, "heading": self.headingData, "gravity-x": self.gravDataX, "gravity-y": self.gravDataY, "gravity-z": self.gravDataZ, "recording-length": self.timeLimit, "fall-time": self.fallTime, "ground-time": self.groundTime, "hr-bpm": self.hrData, "hr-rrs": self.hr_rrsData, "hr-rrsms": self.hr_rrsmsData, "hr-rss-peak": self.hr_rrs_peakData, "hr-rssms-peak": self.hr_rrsms_peakData, "hr-contact": self.hr_contactData, "hr-ecg": self.ecgData, "hr-accelerometer-x": self.pAccDataX, "hr-accelerometer-y": self.pAccDataY, "hr-accelerometer-z": self.pAccDataZ])
+         */
 
         self.performSegue(withIdentifier: self.segue, sender: self)
     }

@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_FD_dataset_generatorVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_FD_dataset_generatorVersionString[];
+FOUNDATION_EXPORT double Pods_LH_FDDGVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_LH_FDDGVersionString[];
 
