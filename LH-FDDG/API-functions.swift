@@ -77,4 +77,12 @@ class APIFunctions {
             self.delegate?.fetchUser(user: data!)
         }
     }
+    
+    func createUser(user: User) {
+        print("Creating user...")
+    }
+    
+    func createRecording(recording: Recording) {
+        print("Creating recording...")
+    }
 }
