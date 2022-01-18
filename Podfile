@@ -9,6 +9,7 @@ target 'LH-FDDG' do
     pod 'Firebase', '7.2-M1'
     pod 'Firebase/Firestore', '7.2-M1'
     pod 'PolarBleSdk', '~> 3.2'
+    pod 'Alamofire', '~> 5.5'
 end
 
 post_install do |installer|
