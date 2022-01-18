@@ -8,9 +8,7 @@
 import Foundation
 import Alamofire
 
-let ip = "192.168.8.171"
-let port = "8081"
-let host = "http://" + ip + ":" + port
+let host = "http://\(MyConstants.serverIP):\(MyConstants.serverPort)"
 
 struct Coord: Codable {
     var x: [Double] // x, roll
@@ -46,50 +44,6 @@ struct Recording: Codable {
     var att_pitch: [Double]
     var att_yaw: [Double]
     var delta_heading: [Double]
-    /*
-    private enum CodingKeys: String, CodingKey {
-        case creation
-        case _id
-        case fall_time
-        case fall_type
-        case recording_duration
-        case ground_time
-        case p_ecg
-        case p_acc_x
-        case p_acc_y
-        case p_acc_z
-        case acc_x
-        case acc_y
-        case acc_z
-        case gyr_x
-        case gyr_y
-        case gyr_z
-        case gra_x
-        case gra_y
-        case gra_z
-        case mag_x
-        case mag_y
-        case mag_z
-        case att_roll
-        case att_pitch
-        case att_yaw
-        case delta_heading
-    }
-    
-    init(creation: NSDate, _id: String, fall_time: String) {
-        <#statements#>
-    }
-    
-    required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        creation = try values.decode(NSDate, forKey: .creation)
-        _id = try values.decode(String, forKey: ._id)
-        fall_time = try values.decode(Float, forKey: .fall_time)
-        fall_type = try values.decode(String, forKey: .fall_type)
-        recording_duration = try values.decode(Float, forKey: .recording_duration)
-        ground_time = try values.decode(Float, forKey: .ground_time)
-        p_ecg = try values.decode([Float], forKey: .p_ecg)
-    }*/
 }
 
 struct User {
@@ -109,16 +63,15 @@ class APIFunctions {
     static let functions = APIFunctions()
     
     func fetchRecordings() {
-        print("fetching user data...")
+        print("Fetching recordings...")
+        
         AF.request(host + "/fetchRecordings").response { response in
-            print(response.data ?? "null data")
-            
             let data = String(data: response.data!, encoding: .utf8)
-            print(data)
-            
             self.delegate?.fetchRecordings(recordings: data!)
-            
-            //print(JSONDecoder().decode([Recording].self, from: data!.data(using: .utf8)!))
         }
+    }
+    
+    func fetchUser(id: String) {
+        print("Fetching user with id \(id)...")
     }
 }

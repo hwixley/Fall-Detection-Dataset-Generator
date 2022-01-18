@@ -12,10 +12,14 @@ class mnSettingsViewController: UIViewController, UITextFieldDelegate {
     //MARK: Textfields
     @IBOutlet weak var lengthTextfield: UITextField!
     @IBOutlet weak var fallTextfield: UITextField!
+    @IBOutlet weak var ipTextfield: UITextField!
+    @IBOutlet weak var portTextfield: UITextField!
     
     //MARK: Labels
     @IBOutlet weak var lengthLabel: UILabel!
     @IBOutlet weak var fallLabel: UILabel!
+    @IBOutlet weak var ipLabel: UILabel!
+    @IBOutlet weak var portLabel: UILabel!
     
     //MARK: Input properties
     @IBOutlet var tapOutsideKB: UITapGestureRecognizer!
@@ -29,11 +33,18 @@ class mnSettingsViewController: UIViewController, UITextFieldDelegate {
 
         self.lengthTextfield.text = ""
         self.fallTextfield.text = ""
-        self.lengthTextfield.placeholder = MyConstants.recordingLength == 15 ? "Default 15s" : "15s -> " + String(MyConstants.recordingLength) + "s"
-        self.fallTextfield.placeholder = MyConstants.fallTime == 10 ? "Default 10s" : "10s -> " + String(MyConstants.fallTime) + "s"
+        self.ipTextfield.text = ""
+        self.portTextfield.text = ""
+        self.lengthTextfield.placeholder = MyConstants.recordingLength == 15 ? "Default 15s" : "15s -> \(String(MyConstants.recordingLength))s"
+        self.fallTextfield.placeholder = MyConstants.fallTime == 10 ? "Default 10s" : "10s -> \(String(MyConstants.fallTime))s"
+        self.ipTextfield.placeholder = MyConstants.serverIP == "192.168.8.171" ? "Default: 192.168.8.171" : "-> \(MyConstants.serverIP)"
+        self.portTextfield.placeholder = MyConstants.serverPort == "8081" ? "Default: 8081" : "8081 -> \(MyConstants.serverPort)"
         self.tapOutsideKB.isEnabled = false
+        
         self.lengthTextfield.delegate = self
         self.fallTextfield.delegate = self
+        self.ipTextfield.delegate = self
+        self.portTextfield.delegate = self
     }
     
     //MARK: Actions
@@ -65,6 +76,27 @@ class mnSettingsViewController: UIViewController, UITextFieldDelegate {
             fallLabel.textColor = UIColor.red
         }
         self.viewDidLoad()
+    }
+    
+    @IBAction func updateIP(_ sender: UIButton) {
+        self.clickedTextfield.resignFirstResponder()
+        var sin = sockaddr_in()
+        
+        if ipTextfield.text != nil && ipTextfield.text! != "" && ipTextfield.text!.withCString({ cstring in inet_pton(AF_INET, cstring, &sin.sin_addr) }) == 1 {
+            MyConstants.serverIP = ipTextfield.text!
+        } else {
+            ipLabel.textColor = UIColor.red
+        }
+    }
+    
+    @IBAction func updatePort(_ sender: UIButton) {
+        self.clickedTextfield.resignFirstResponder()
+        
+        if portTextfield.text != nil && portTextfield.text! != "" {
+            MyConstants.serverPort = portTextfield.text!
+        } else {
+            portLabel.textColor = UIColor.red
+        }
     }
     
     @IBAction func tapOutsideKB(_ sender: UITapGestureRecognizer) {

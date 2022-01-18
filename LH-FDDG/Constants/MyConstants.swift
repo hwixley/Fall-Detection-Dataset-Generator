@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import FirebaseFirestore
 import PolarBleSdk
 
 struct MyConstants {
@@ -22,6 +23,8 @@ struct MyConstants {
     static var fallTime = 10.0
     static var polarDeviceID = "9F8BF424"
     static var polarManager = PolarBleSdkManager()
+    static var serverIP = "192.168.8.171"
+    static var serverPort = "8081"
 }
 
 
