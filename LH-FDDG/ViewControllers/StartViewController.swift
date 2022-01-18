@@ -13,6 +13,9 @@ class StartViewController: UIViewController {
         super.viewDidLoad()
         
         getConstantData()
+        
+        let api = APIFunctions()
+        api.fetchRecordings()
     }
     
 

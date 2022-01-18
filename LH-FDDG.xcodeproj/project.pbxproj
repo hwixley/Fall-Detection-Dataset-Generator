@@ -15,7 +15,6 @@
 		D0216FC72694EAC1008E21A9 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0216FC62694EAC1008E21A9 /* MenuViewController.swift */; };
 		D0290D8826946B1400BE3900 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0290D8726946B1400BE3900 /* AppDelegate.swift */; };
 		D0290D8A26946B1400BE3900 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0290D8926946B1400BE3900 /* SceneDelegate.swift */; };
-		D0290D8C26946B1400BE3900 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0290D8B26946B1400BE3900 /* ViewController.swift */; };
 		D0290D9426946B1400BE3900 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0290D9226946B1400BE3900 /* LaunchScreen.storyboard */; };
 		D0848DEA277DE12000117AFC /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0848DE9277DE12000117AFC /* GameKit.framework */; };
 		D0857D962699FC6300510F12 /* RecordingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0857D952699FC6300510F12 /* RecordingTableViewCell.swift */; };
@@ -31,6 +30,7 @@
 		D0DCBC1A276E5F58001006C7 /* PolarBleSdkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DCBC19276E5F58001006C7 /* PolarBleSdkManager.swift */; };
 		D0DCBC1C276E61E8001006C7 /* PolarConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DCBC1B276E61E8001006C7 /* PolarConnectionView.swift */; };
 		D0DCBC20276F6B7A001006C7 /* PolarDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DCBC1F276F6B7A001006C7 /* PolarDataView.swift */; };
+		D0F7AAE32797270600611182 /* API-functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F7AAE22797270600611182 /* API-functions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,7 +47,6 @@
 		D0290D8426946B1400BE3900 /* LH-FDDG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LH-FDDG.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0290D8726946B1400BE3900 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0290D8926946B1400BE3900 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D0290D8B26946B1400BE3900 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D0290D9326946B1400BE3900 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D0290D9526946B1400BE3900 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0848DE9277DE12000117AFC /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
@@ -65,6 +64,7 @@
 		D0DCBC19276E5F58001006C7 /* PolarBleSdkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolarBleSdkManager.swift; sourceTree = "<group>"; };
 		D0DCBC1B276E61E8001006C7 /* PolarConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolarConnectionView.swift; sourceTree = "<group>"; };
 		D0DCBC1F276F6B7A001006C7 /* PolarDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolarDataView.swift; sourceTree = "<group>"; };
+		D0F7AAE22797270600611182 /* API-functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API-functions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,12 +147,12 @@
 				D09DE5AA26946EA0008B5EB9 /* ViewControllers */,
 				D0290D8726946B1400BE3900 /* AppDelegate.swift */,
 				D0290D8926946B1400BE3900 /* SceneDelegate.swift */,
-				D0290D8B26946B1400BE3900 /* ViewController.swift */,
 				D09DE5B126946FA9008B5EB9 /* Main.storyboard */,
 				D09DE5B42694700D008B5EB9 /* Assets.xcassets */,
 				D0290D9226946B1400BE3900 /* LaunchScreen.storyboard */,
 				D09DE5A826946E97008B5EB9 /* GoogleService-Info.plist */,
 				D0290D9526946B1400BE3900 /* Info.plist */,
+				D0F7AAE22797270600611182 /* API-functions.swift */,
 			);
 			path = "LH-FDDG";
 			sourceTree = "<group>";
@@ -299,10 +299,10 @@
 				D0DCBC18276E2107001006C7 /* ConnectViewController.swift in Sources */,
 				D0216FBE269485DA008E21A9 /* Recording.swift in Sources */,
 				D0216FC52694EABB008E21A9 /* SearchSubjectsViewController.swift in Sources */,
+				D0F7AAE32797270600611182 /* API-functions.swift in Sources */,
 				D0857D98269F543500510F12 /* LiveSensorsViewController.swift in Sources */,
 				D0216FC32694EAAD008E21A9 /* AddUserViewController.swift in Sources */,
 				D0DCBC20276F6B7A001006C7 /* PolarDataView.swift in Sources */,
-				D0290D8C26946B1400BE3900 /* ViewController.swift in Sources */,
 				D0DCBC1A276E5F58001006C7 /* PolarBleSdkManager.swift in Sources */,
 				D0DCBC1C276E61E8001006C7 /* PolarConnectionView.swift in Sources */,
 				D0216FC72694EAC1008E21A9 /* MenuViewController.swift in Sources */,
@@ -466,7 +466,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4KJDTQP569;
 				EXCLUDED_ARCHS = "";
-				INFOPLIST_FILE = "FD-dataset-generator/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/LH-FDDG/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -490,7 +490,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4KJDTQP569;
 				EXCLUDED_ARCHS = "";
-				INFOPLIST_FILE = "FD-dataset-generator/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/LH-FDDG/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
