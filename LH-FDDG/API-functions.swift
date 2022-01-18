@@ -10,10 +10,9 @@ import Alamofire
 
 let host = "http://\(MyConstants.serverIP):\(MyConstants.serverPort)"
 
-struct Coord: Codable {
-    var x: [Double] // x, roll
-    var y: [Double]  // y, pitch
-    var z: [Double]  // z, yaw
+protocol DataDelegate {
+    func fetchRecordings(recordings: String)
+    func fetchUser(user: String)
 }
 
 struct Recording: Codable {
@@ -46,9 +45,8 @@ struct Recording: Codable {
     var delta_heading: [Double]
 }
 
-struct User {
+struct User: Codable {
     var _id: String
-    var subject_id: String
     var name: String
     var age: Int
     var height: Float //cm
@@ -73,5 +71,10 @@ class APIFunctions {
     
     func fetchUser(id: String) {
         print("Fetching user with id \(id)...")
+        
+        AF.request(host + "/fetchUser").response { response in
+            let data = String(data: response.data!, encoding: .utf8)
+            self.delegate?.fetchUser(user: data!)
+        }
     }
 }
