@@ -7,15 +7,22 @@
 
 import UIKit
 
+protocol DataDelegate {
+    func fetchRecordings(recordings: String)
+}
+
 class StartViewController: UIViewController {
+    
+    var recordingsArray = [Recording]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         getConstantData()
         
-        let api = APIFunctions()
-        api.fetchRecordings()
+        APIFunctions.functions.delegate = self
+        APIFunctions.functions.fetchRecordings()
+        print(recordingsArray)
     }
     
 
@@ -23,4 +30,17 @@ class StartViewController: UIViewController {
     @IBAction func unwindToStart(segue: UIStoryboardSegue) {
     }
 
+}
+
+
+extension StartViewController: DataDelegate {
+    
+    func fetchRecordings(recordings: String) {
+        do {
+            recordingsArray = try JSONDecoder().decode([Recording].self, from: recordings.data(using: .utf8)!)
+            print(recordingsArray)
+        } catch {
+            print("Failed to decode")
+        }
+    }
 }

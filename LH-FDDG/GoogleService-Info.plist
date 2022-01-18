@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>540846998129-dqc3ihr680psia2g3lmlogqu0m75kqdo.apps.googleusercontent.com</string>
+	<string>540846998129-q4on0ebdpmpo02a47f4du7c0bdonrji4.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.540846998129-dqc3ihr680psia2g3lmlogqu0m75kqdo</string>
+	<string>com.googleusercontent.apps.540846998129-q4on0ebdpmpo02a47f4du7c0bdonrji4</string>
 	<key>API_KEY</key>
 	<string>AIzaSyAokAuyCw9oY5Aa9khyYyb_OhKB9mCIdE8</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>ug4-honours-project.FD-dataset-generator</string>
+	<string>ug4-honours-project.lhfddg</string>
 	<key>PROJECT_ID</key>
 	<string>honsproject-falldetectiondata</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:540846998129:ios:e03ccb1ad36f3e3de811d0</string>
+	<string>1:540846998129:ios:49b5dadf632923dfe811d0</string>
 </dict>
 </plist>
