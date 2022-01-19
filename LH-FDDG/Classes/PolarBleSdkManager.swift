@@ -41,10 +41,6 @@ class PolarBleSdkManager : ObservableObject {
     @Published var acc_y: [Double] = []
     @Published var acc_z: [Double] = []
     @Published var hr: [Double] = []
-    @Published var hr_rrsms : [Double] = []
-    @Published var hr_rrsms_peak : [Double] = []
-    @Published var hr_rrs : [Double] = []
-    @Published var hr_rrs_peak : [Double] = []
     @Published var contact : [Bool] = []
     
     @Published var l_ecg: Int32 = 0
@@ -64,12 +60,7 @@ class PolarBleSdkManager : ObservableObject {
                 self.acc_x = []
                 self.acc_y = []
                 self.acc_z = []
-                self.hr = []
-                self.hr_rrs = []
-                self.hr_rrsms = []
-                self.hr_rrs_peak = []
-                self.hr_rrsms_peak = []
-                //self.contact = []
+                self.contact = []
             }
         }
     }
@@ -481,18 +472,6 @@ extension PolarBleSdkManager : PolarBleApiDeviceHrObserver {
     func hrValueReceived(_ identifier: String, data: PolarHrData) {
         if self.isRecording {
             self.hr.append(Double(data.hr))
-            if data.rrs.count == 1 {
-                self.hr_rrs.append(Double(data.rrs[0]))
-            } else {
-                self.hr_rrs_peak.append(Double(data.rrs[0]))
-                self.hr_rrs.append(Double(data.rrs[1]))
-            }
-            if data.rrsMs.count == 1 {
-                self.hr_rrsms.append(Double(data.rrsMs[0]))
-            } else {
-                self.hr_rrsms_peak.append(Double(data.rrsMs[0]))
-                self.hr_rrsms.append(Double(data.rrsMs[1]))
-            }
             self.contact.append(data.contact)
         }
         if self.isLive {

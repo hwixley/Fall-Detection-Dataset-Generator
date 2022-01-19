@@ -183,18 +183,12 @@ class RecordingViewController: UIViewController {
                     MyConstants.polarManager.isLive = false
                     self.recording!.p_hr = MyConstants.polarManager.hr
                     self.recording!.p_ecg = MyConstants.polarManager.ecg
-                    self.recording!.p_hr_rss = MyConstants.polarManager.hr_rrs
-                    self.recording!.p_hr_rss_peak = MyConstants.polarManager.hr_rrs_peak
-                    self.recording!.p_hr_rssms = MyConstants.polarManager.hr_rrsms
-                    self.recording!.p_hr_rssms_peak = MyConstants.polarManager.hr_rrsms_peak
                     self.recording!.p_contact = MyConstants.polarManager.contact
                     self.recording!.p_acc_x = MyConstants.polarManager.acc_x
                     self.recording!.p_acc_y = MyConstants.polarManager.acc_y
                     self.recording!.p_acc_z = MyConstants.polarManager.acc_z
                     
                     print(self.recording!.p_hr.count)
-                    print(self.recording!.p_hr_rss.count)
-                    print(self.recording!.p_hr_rssms.count)
                     print(self.recording!.p_ecg.count)
                     print(self.recording!.p_acc_x.count)
                     print(self.recording!.p_acc_y.count)
