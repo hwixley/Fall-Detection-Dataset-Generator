@@ -34,48 +34,14 @@ class RecordingViewController: UIViewController {
     var count = 4.0
     var isRecording = false
     var isComplete = false
-    /*
-    let timeLimit = MyConstants.recordingLength
-    var fallTime = MyConstants.fallTime*/
     var timer : Timer? = nil
-    //var groundTime = Double([2,2,2,2,3,3,3,3,4,4,4,5,5,5,6,6,7,7,8][Int.random(in: 0...18)])
 
     //MARK: Segue Data
-    //var recordingInfo: RecordingInfo? = nil
     var segue = ""
     
     //MARK: Motion based Variables
     let motionManager = CMMotionManager()
-    var recording: Recording? = nil// = Recording(subject_id: "", fall_time: MyConstants.fallTime, fall_type: "", recording_duration: MyConstants.recordingLength, ground_time: Double([2,2,2,2,3,3,3,3,4,4,4,5,5,5,6,6,7,7,8][Int.random(in: 0...18)]), p_ecg: [], p_acc_x: [], p_acc_y: [], p_acc_z: [], acc_x: [], acc_y: [], acc_z: [], gyr_x: [], gyr_y: [], gyr_z: [], gra_x: [], gra_y: [], gra_z: [], mag_x: [], mag_y: [], mag_z: [], att_roll: [], att_pitch: [], att_yaw: [], delta_heading: [])
-    /*var accDataX : [Double] = []
-    var accDataY : [Double] = []
-    var accDataZ : [Double] = []
-    var gyroDataX : [Double] = []
-    var gyroDataY : [Double] = []
-    var gyroDataZ : [Double] = []
-    var magDataX : [Double] = []
-    var magDataY : [Double] = []
-    var magDataZ : [Double] = []
-    var magDataAcc : [Double] = []
-    var attDataRoll : [Double] = []
-    var attDataPitch : [Double] = []
-    var attDataYaw : [Double] = []
-    var headingData : [Double] = []
-    var gravDataX : [Double] = []
-    var gravDataY : [Double] = []
-    var gravDataZ : [Double] = []
-    var timeData : [Double] = []
-    
-    var hrData : [UInt8] = []
-    var hr_rrsData : [Int] = []
-    var hr_rrs_peakData : [Int] = []
-    var hr_rrsmsData : [Int] = []
-    var hr_rrsms_peakData : [Int] = []
-    var hr_contactData : [Bool] = []
-    var ecgData : [Int32] = []
-    var pAccDataX : [Int32] = []
-    var pAccDataY : [Int32] = []
-    var pAccDataZ : [Int32] = []*/
+    var recording: Recording? = nil
     
     var lastHeading = -999.0
     
@@ -107,8 +73,6 @@ class RecordingViewController: UIViewController {
         if self.recording!.fall_type == "" {
             self.recording!.fall_time = -999
             self.recording!.ground_time = -999
-            /*self.fallTime = -999
-            self.groundTime = -999*/
         }
         
         //Motion setup
@@ -127,6 +91,8 @@ class RecordingViewController: UIViewController {
     //MARK: Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        MyConstants.polarManager.isRecording = false
+        
         if segue.identifier == "returnToSearchPage" {
             let nc = segue.destination as! UINavigationController
             let vc = nc.viewControllers.first as! SearchSubjectsViewController
@@ -160,7 +126,7 @@ class RecordingViewController: UIViewController {
             }
         }*/
 
-        let collectionName = formatStat(action: self.recording!.action, fall: self.recording!.fall_type)
+        //let collectionName = formatStat(action: self.recording!.action, fall: self.recording!.fall_type)
         
         //Add recording
         APIFunctions.functions.createRecording(recording: self.recording!)
@@ -214,13 +180,14 @@ class RecordingViewController: UIViewController {
                     self.timer!.invalidate()
                     self.timer = nil
                     MyConstants.polarManager.isRecording = false
+                    MyConstants.polarManager.isLive = false
                     self.recording!.p_hr = MyConstants.polarManager.hr
                     self.recording!.p_ecg = MyConstants.polarManager.ecg
                     self.recording!.p_hr_rss = MyConstants.polarManager.hr_rrs
                     self.recording!.p_hr_rss_peak = MyConstants.polarManager.hr_rrs_peak
                     self.recording!.p_hr_rssms = MyConstants.polarManager.hr_rrsms
                     self.recording!.p_hr_rssms_peak = MyConstants.polarManager.hr_rrsms_peak
-                    //self.hr_contactData = MyConstants.polarManager.contact
+                    self.recording!.p_contact = MyConstants.polarManager.contact
                     self.recording!.p_acc_x = MyConstants.polarManager.acc_x
                     self.recording!.p_acc_y = MyConstants.polarManager.acc_y
                     self.recording!.p_acc_z = MyConstants.polarManager.acc_z

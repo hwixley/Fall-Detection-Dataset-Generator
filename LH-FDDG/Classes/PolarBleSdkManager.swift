@@ -45,7 +45,7 @@ class PolarBleSdkManager : ObservableObject {
     @Published var hr_rrsms_peak : [Double] = []
     @Published var hr_rrs : [Double] = []
     @Published var hr_rrs_peak : [Double] = []
-    //@Published var contact : [Bool] = []
+    @Published var contact : [Bool] = []
     
     @Published var l_ecg: Int32 = 0
     @Published var l_acc_x: Int32 = 0
@@ -493,12 +493,16 @@ extension PolarBleSdkManager : PolarBleApiDeviceHrObserver {
                 self.hr_rrsms_peak.append(Double(data.rrsMs[0]))
                 self.hr_rrsms.append(Double(data.rrsMs[1]))
             }
-            //self.contact.append(data.contact)
+            self.contact.append(data.contact)
         }
         if self.isLive {
             self.l_hr = data.hr
-            self.l_hr_rrs = data.rrs.count == 1 ? data.rrs[0] : data.rrs[1]
-            self.l_hr_rrsms = data.rrsMs.count == 1 ? data.rrsMs[0] : data.rrsMs[1]
+            if data.rrs.count > 0 {
+                self.l_hr_rrs = data.rrs.count == 1 ? data.rrs[0] : data.rrs[1]
+            }
+            if data.rrsMs.count > 0 {
+                self.l_hr_rrsms = data.rrsMs.count == 1 ? data.rrsMs[0] : data.rrsMs[1]
+            }
         }
         NSLog("(\(identifier)) HR value: \(data.hr) rrsMs: \(data.rrsMs) rrs: \(data.rrs) contact: \(data.contact) contact supported: \(data.contactSupported)")
     }
