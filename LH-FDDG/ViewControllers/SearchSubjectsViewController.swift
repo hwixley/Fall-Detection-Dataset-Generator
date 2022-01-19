@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class SearchSubjectsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
@@ -63,6 +64,8 @@ class SearchSubjectsViewController: UIViewController, UITableViewDelegate, UITab
         if Int(searchTextfield.text!) != nil || searchTextfield.text! == "" {
             self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             self.loadCells(subjectID: searchTextfield.text!)
+            
+            // Perform fetchUser request
         }
     }
     
@@ -139,7 +142,6 @@ class SearchSubjectsViewController: UIViewController, UITableViewDelegate, UITab
         if subjectID != "" {
             self.tableView.allowsSelection = true
             
-            /*
             Firestore.firestore().collection("subjects").document(subjectID).collection("recordingStats").document("root").getDocument { docSnapshot, e in
                 if e == nil && docSnapshot != nil && docSnapshot!.data() != nil {
                     self.recordings = []
@@ -168,10 +170,10 @@ class SearchSubjectsViewController: UIViewController, UITableViewDelegate, UITab
                     self.recordings = []
                     self.tableView.reloadData()
                 }
-            }*/
+            }
         } else {
             self.tableView.allowsSelection = false
-            /*
+            
             Firestore.firestore().collection("stats").document("root").addSnapshotListener({ docSnapshot, e in
                 if e == nil && docSnapshot != nil {
                     self.recordings = []
@@ -200,7 +202,7 @@ class SearchSubjectsViewController: UIViewController, UITableViewDelegate, UITab
                     self.navigationItem.prompt = "fuck"
                     print(e!.localizedDescription)
                 }
-            })*/
+            })
         }
     }
     

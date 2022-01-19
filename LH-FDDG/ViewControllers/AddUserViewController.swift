@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class AddUserViewController: UIViewController, UITextFieldDelegate {
     
@@ -56,18 +57,24 @@ class AddUserViewController: UIViewController, UITextFieldDelegate {
         }
         
         if validateInputs() {
-            /*
+            
             Firestore.firestore().collection("subjects").document("root").getDocument { docSnapshot, err in
                 
                 if err == nil && docSnapshot != nil {
                     let lastId = docSnapshot!.data()!["lastId"] as! Int
                     let newId = lastId + 1
                     
-                    Firestore.firestore().collection("subjects").document(String(newId)).setData(["id": String(newId), "name": self.nameTextfield.text!, "age": self.ageTextfield.text!, "height": self.heightTextfield.text!, "weight": self.weightTextfield.text!, "gender": self.genderSegmentedControl.selectedSegmentIndex == 1 ? "male" : "female", "medical_conditions": self.conditionsTextfield.text!])
+                    // Perform createUser request
+                    let user = User(_id: "", subject_id: String(newId), name: self.nameTextfield.text!, age: Int(self.ageTextfield.text!)!, height: Int(self.heightTextfield.text!)!, weight: Int(self.weightTextfield.text!)!, is_female: self.genderSegmentedControl.selectedSegmentIndex == 2 ? true : false, medical_conditions: self.conditionsTextfield.text!)
+                    let id = APIFunctions.functions.createUser(user: user)
+                    //print("successfully created user!!!")
+                    //print(id)
+                    
+                    /*Firestore.firestore().collection("subjects").document(String(newId)).setData(["id": String(newId)]/*, "name": self.nameTextfield.text!, "age": self.ageTextfield.text!, "height": self.heightTextfield.text!, "weight": self.weightTextfield.text!, "gender": self.genderSegmentedControl.selectedSegmentIndex == 1 ? "male" : "female", "medical_conditions": self.conditionsTextfield.text!]*/)
                     
                     Firestore.firestore().collection("subjects").document("root").updateData(["lastId": newId])
                     
-                    Firestore.firestore().collection("subjects").document(String(newId)).collection("recordingStats").document("root").setData(getDefaultStats())
+                    Firestore.firestore().collection("subjects").document(String(newId)).collection("recordingStats").document("root").setData(getDefaultStats())*/
                     
                     let ac = UIAlertController(title: "Your subject ID is: " + String(newId), message: "Make sure to remember your number!", preferredStyle: UIAlertController.Style.alert)
                     ac.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
@@ -80,7 +87,7 @@ class AddUserViewController: UIViewController, UITextFieldDelegate {
                     self.genderSegmentedControl.selectedSegmentIndex = 0
                     self.conditionsTextfield.text = ""
                 }
-            }*/
+            }
         }
     }
     

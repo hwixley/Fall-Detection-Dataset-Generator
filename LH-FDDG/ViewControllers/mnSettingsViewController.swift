@@ -37,7 +37,7 @@ class mnSettingsViewController: UIViewController, UITextFieldDelegate {
         self.portTextfield.text = ""
         self.lengthTextfield.placeholder = MyConstants.recordingLength == 15 ? "Default 15s" : "15s -> \(String(MyConstants.recordingLength))s"
         self.fallTextfield.placeholder = MyConstants.fallTime == 10 ? "Default 10s" : "10s -> \(String(MyConstants.fallTime))s"
-        self.ipTextfield.placeholder = MyConstants.serverIP == "192.168.8.171" ? "Default: 192.168.8.171" : "-> \(MyConstants.serverIP)"
+        self.ipTextfield.placeholder = MyConstants.serverIP == "192.168.8.160" ? "Default: 192.168.8.160" : "-> \(MyConstants.serverIP)"
         self.portTextfield.placeholder = MyConstants.serverPort == "8081" ? "Default: 8081" : "8081 -> \(MyConstants.serverPort)"
         self.tapOutsideKB.isEnabled = false
         

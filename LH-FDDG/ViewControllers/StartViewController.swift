@@ -9,16 +9,12 @@ import UIKit
 
 class StartViewController: UIViewController {
     
-    var recordingsArray = [Recording]()
+    //var recordingsArray = [Recording]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         getConstantData()
-        
-        APIFunctions.functions.delegate = self
-        APIFunctions.functions.fetchRecordings()
-        print(recordingsArray)
     }
     
 
@@ -29,6 +25,7 @@ class StartViewController: UIViewController {
 }
 
 
+/*
 extension StartViewController: DataDelegate {
     
     func fetchUser(user: String) {
@@ -49,3 +46,4 @@ extension StartViewController: DataDelegate {
         }
     }
 }
+ */
