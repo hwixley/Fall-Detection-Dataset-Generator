@@ -65,10 +65,8 @@ class AddUserViewController: UIViewController, UITextFieldDelegate {
                     let newId = lastId + 1
                     
                     // Perform createUser request
-                    let user = User(_id: "", subject_id: String(newId), name: self.nameTextfield.text!, age: Int(self.ageTextfield.text!)!, height: Int(self.heightTextfield.text!)!, weight: Int(self.weightTextfield.text!)!, is_female: self.genderSegmentedControl.selectedSegmentIndex == 2 ? true : false, medical_conditions: self.conditionsTextfield.text!)
-                    let id = APIFunctions.functions.createUser(user: user)
-                    //print("successfully created user!!!")
-                    //print(id)
+                    MyConstants.user = User(_id: "", subject_id: String(newId), name: self.nameTextfield.text!, age: Int(self.ageTextfield.text!)!, height: Int(self.heightTextfield.text!)!, weight: Int(self.weightTextfield.text!)!, is_female: self.genderSegmentedControl.selectedSegmentIndex == 2 ? true : false, medical_conditions: self.conditionsTextfield.text!)
+                    APIFunctions.functions.createUser(user: MyConstants.user!)
                     
                     /*Firestore.firestore().collection("subjects").document(String(newId)).setData(["id": String(newId)]/*, "name": self.nameTextfield.text!, "age": self.ageTextfield.text!, "height": self.heightTextfield.text!, "weight": self.weightTextfield.text!, "gender": self.genderSegmentedControl.selectedSegmentIndex == 1 ? "male" : "female", "medical_conditions": self.conditionsTextfield.text!]*/)
                     

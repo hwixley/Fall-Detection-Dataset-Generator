@@ -25,6 +25,7 @@ struct MyConstants {
     static var polarManager = PolarBleSdkManager()
     static var serverIP = "192.168.8.160"
     static var serverPort = "8081"
+    static var user: User? = nil
 }
 
 
@@ -88,8 +89,4 @@ func getSubjectStatsRecordings(subjectID: String, docData: [String: Any]) -> [Re
     }
     
     return recList
-}
-
-struct MyUser {
-    static var subjectId : String = ""
 }

@@ -34,18 +34,20 @@ class RecordingViewController: UIViewController {
     var count = 4.0
     var isRecording = false
     var isComplete = false
+    /*
     let timeLimit = MyConstants.recordingLength
-    var fallTime = MyConstants.fallTime
+    var fallTime = MyConstants.fallTime*/
     var timer : Timer? = nil
-    var groundTime = Double([2,2,2,2,3,3,3,3,4,4,4,5,5,5,6,6,7,7,8][Int.random(in: 0...18)])
+    //var groundTime = Double([2,2,2,2,3,3,3,3,4,4,4,5,5,5,6,6,7,7,8][Int.random(in: 0...18)])
 
     //MARK: Segue Data
-    var recordingInfo: RecordingInfo? = nil
+    //var recordingInfo: RecordingInfo? = nil
     var segue = ""
     
     //MARK: Motion based Variables
     let motionManager = CMMotionManager()
-    var accDataX : [Double] = []
+    var recording: Recording? = nil// = Recording(subject_id: "", fall_time: MyConstants.fallTime, fall_type: "", recording_duration: MyConstants.recordingLength, ground_time: Double([2,2,2,2,3,3,3,3,4,4,4,5,5,5,6,6,7,7,8][Int.random(in: 0...18)]), p_ecg: [], p_acc_x: [], p_acc_y: [], p_acc_z: [], acc_x: [], acc_y: [], acc_z: [], gyr_x: [], gyr_y: [], gyr_z: [], gra_x: [], gra_y: [], gra_z: [], mag_x: [], mag_y: [], mag_z: [], att_roll: [], att_pitch: [], att_yaw: [], delta_heading: [])
+    /*var accDataX : [Double] = []
     var accDataY : [Double] = []
     var accDataZ : [Double] = []
     var gyroDataX : [Double] = []
@@ -73,14 +75,14 @@ class RecordingViewController: UIViewController {
     var ecgData : [Int32] = []
     var pAccDataX : [Int32] = []
     var pAccDataY : [Int32] = []
-    var pAccDataZ : [Int32] = []
+    var pAccDataZ : [Int32] = []*/
     
     var lastHeading = -999.0
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         //General setup
         self.dataStackView.isHidden = true
         self.saveButton.isHidden = true
@@ -90,21 +92,23 @@ class RecordingViewController: UIViewController {
         RunLoop.current.add(timer, forMode: .common)
         self.timer = timer
         
-        if recordingInfo != nil {
+        if self.recording != nil {
             let actionTitle = NSMutableAttributedString(string: "Action: ", attributes: MyConstants.bold)
-            let actionValue = NSAttributedString(string: self.recordingInfo!.action, attributes: MyConstants.normal)
+            let actionValue = NSAttributedString(string: self.recording!.action, attributes: MyConstants.normal)
             actionTitle.append(actionValue)
             self.actionLabel.attributedText = actionTitle
             
             let fallTitle = NSMutableAttributedString(string: "Fall: ", attributes: MyConstants.bold)
-            let fallValue = NSAttributedString(string: self.recordingInfo!.includesFall == true ? self.recordingInfo!.fallType : "none", attributes: MyConstants.normal)
+            let fallValue = NSAttributedString(string: self.recording!.fall_type != "" ? self.recording!.fall_type : "none", attributes: MyConstants.normal)
             fallTitle.append(fallValue)
             self.fallLabel.attributedText = fallTitle
         }
         
-        if !self.recordingInfo!.includesFall {
-            self.fallTime = -999
-            self.groundTime = -999
+        if self.recording!.fall_type == "" {
+            self.recording!.fall_time = -999
+            self.recording!.ground_time = -999
+            /*self.fallTime = -999
+            self.groundTime = -999*/
         }
         
         //Motion setup
@@ -126,7 +130,7 @@ class RecordingViewController: UIViewController {
         if segue.identifier == "returnToSearchPage" {
             let nc = segue.destination as! UINavigationController
             let vc = nc.viewControllers.first as! SearchSubjectsViewController
-            vc.subjectID = self.recordingInfo!.subjectId
+            vc.subjectID = self.recording!.subject_id
         }
     }
 
@@ -156,9 +160,11 @@ class RecordingViewController: UIViewController {
             }
         }*/
 
-        let collectionName = formatStat(action: self.recordingInfo!.action, fall: self.recordingInfo!.fallType)
+        let collectionName = formatStat(action: self.recording!.action, fall: self.recording!.fall_type)
         
         //Add recording
+        APIFunctions.functions.createRecording(recording: self.recording!)
+        
         /*
         Firestore.firestore().collection("recordings").document("root").collection(collectionName).addDocument(data: ["subjectID": self.recordingInfo!.subjectId, "includesFall": self.recordingInfo!.includesFall, "fallType": self.recordingInfo!.fallType, "accelerometer-x": self.accDataX, "accelerometer-y": self.accDataY, "accelerometer-z": self.accDataZ, "gyroscope-x": self.gyroDataX, "gyroscope-y": self.gyroDataY, "gyroscope-z": self.gyroDataZ, "magnetometer-x": self.magDataX, "magnetometer-y": self.magDataY, "magnetometer-z": self.magDataZ, "magnetometer-acc": self.magDataAcc, "attitude-roll": self.attDataRoll, "attitude-pitch": self.attDataPitch, "attitude-yaw": self.attDataYaw, "heading": self.headingData, "gravity-x": self.gravDataX, "gravity-y": self.gravDataY, "gravity-z": self.gravDataZ, "recording-length": self.timeLimit, "fall-time": self.fallTime, "ground-time": self.groundTime, "hr-bpm": self.hrData, "hr-rrs": self.hr_rrsData, "hr-rrsms": self.hr_rrsmsData, "hr-rss-peak": self.hr_rrs_peakData, "hr-rssms-peak": self.hr_rrsms_peakData, "hr-contact": self.hr_contactData, "hr-ecg": self.ecgData, "hr-accelerometer-x": self.pAccDataX, "hr-accelerometer-y": self.pAccDataY, "hr-accelerometer-z": self.pAccDataZ])
          */
@@ -181,12 +187,12 @@ class RecordingViewController: UIViewController {
         if !self.isComplete {
             if self.isRecording {
                 
-                if self.recordingInfo!.includesFall {
-                    if round(self.count*100)/100 == self.fallTime {
+                if self.recording!.fall_type != "" {
+                    if round(self.count*100)/100 == self.recording!.fall_time {
                         AudioServicesPlayAlertSound(SystemSoundID(1322))
                     }
                     
-                    if round(self.count*100)/100 == (self.fallTime - self.groundTime) {
+                    if round(self.count*100)/100 == (self.recording!.fall_time - self.recording!.ground_time) {
                         AudioServicesPlayAlertSound(SystemSoundID(1321))
                     }
                 }
@@ -208,26 +214,26 @@ class RecordingViewController: UIViewController {
                     self.timer!.invalidate()
                     self.timer = nil
                     MyConstants.polarManager.isRecording = false
-                    self.hrData = MyConstants.polarManager.hr
-                    self.ecgData = MyConstants.polarManager.ecg
-                    self.hr_rrsData = MyConstants.polarManager.hr_rrs
-                    self.hr_rrs_peakData = MyConstants.polarManager.hr_rrs_peak
-                    self.hr_rrsmsData = MyConstants.polarManager.hr_rrsms
-                    self.hr_rrsms_peakData = MyConstants.polarManager.hr_rrsms_peak
-                    self.hr_contactData = MyConstants.polarManager.contact
-                    self.pAccDataX = MyConstants.polarManager.acc_x
-                    self.pAccDataY = MyConstants.polarManager.acc_y
-                    self.pAccDataZ = MyConstants.polarManager.acc_z
+                    self.recording!.p_hr = MyConstants.polarManager.hr
+                    self.recording!.p_ecg = MyConstants.polarManager.ecg
+                    self.recording!.p_hr_rss = MyConstants.polarManager.hr_rrs
+                    self.recording!.p_hr_rss_peak = MyConstants.polarManager.hr_rrs_peak
+                    self.recording!.p_hr_rssms = MyConstants.polarManager.hr_rrsms
+                    self.recording!.p_hr_rssms_peak = MyConstants.polarManager.hr_rrsms_peak
+                    //self.hr_contactData = MyConstants.polarManager.contact
+                    self.recording!.p_acc_x = MyConstants.polarManager.acc_x
+                    self.recording!.p_acc_y = MyConstants.polarManager.acc_y
+                    self.recording!.p_acc_z = MyConstants.polarManager.acc_z
                     
-                    print(self.hrData.count)
-                    print(self.hr_rrsData.count)
-                    print(self.hr_rrsmsData.count)
-                    print(self.ecgData.count)
-                    print(self.pAccDataX.count)
-                    print(self.pAccDataY.count)
-                    print(self.pAccDataZ.count)
+                    print(self.recording!.p_hr.count)
+                    print(self.recording!.p_hr_rss.count)
+                    print(self.recording!.p_hr_rssms.count)
+                    print(self.recording!.p_ecg.count)
+                    print(self.recording!.p_acc_x.count)
+                    print(self.recording!.p_acc_y.count)
+                    print(self.recording!.p_acc_z.count)
                     print("non-polar length")
-                    print(self.accDataX.count)
+                    print(self.recording!.acc_x.count)
                     print()
                     /*print(self.pAccDataX)
                     print(self.ecgData)
@@ -239,11 +245,11 @@ class RecordingViewController: UIViewController {
                     print(self.hr_contactData)
                     print()*/
                     
-                    if !(self.accDataX.count == self.timeData.count && self.accDataX.count == self.gyroDataX.count && self.timeData.count == self.gyroDataX.count && self.timeData.count == self.magDataX.count && self.magDataX.count == self.attDataRoll.count && self.attDataRoll.count == self.gravDataX.count && self.gravDataX.count == self.headingData.count && self.headingData.count == self.magDataAcc.count) {
-                        print(self.accDataX.count)
-                        print(self.gyroDataX.count)
-                        print(self.magDataX.count)
-                        print(self.timeData.count)
+                    if !(self.recording!.acc_x.count == self.recording!.timestamps.count && self.recording!.acc_x.count == self.recording!.gyr_x.count && self.recording!.timestamps.count == self.recording!.gyr_x.count && self.recording!.timestamps.count == self.recording!.mag_x.count && self.recording!.mag_x.count == self.recording!.att_roll.count && self.recording!.att_roll.count == self.recording!.gra_x.count && self.recording!.gra_x.count == self.recording!.delta_heading.count) {
+                        print(self.recording!.acc_x.count)
+                        print(self.recording!.gyr_x.count)
+                        print(self.recording!.mag_x.count)
+                        print(self.recording!.timestamps.count)
                         self.navigationItem.prompt = "Recording error: please try again"
                     } else {
                         self.saveButton.isHidden = false
@@ -257,7 +263,7 @@ class RecordingViewController: UIViewController {
                     self.timerLabel.text = "Recording starting in...\n " + String(Int(floor(count)))
                 } else {
                     AudioServicesPlayAlertSound(SystemSoundID(1113))
-                    self.count = self.timeLimit
+                    self.count = self.recording!.recording_duration
                     self.isRecording = true
                     self.dataStackView.isHidden = false
                     self.hrContainerView.isHidden = false
@@ -293,36 +299,36 @@ class RecordingViewController: UIViewController {
                 self.gravityLabel.text = "Gravity: X = " + String(format: "%.2f", motionData.gravity.x) + "  Y = " + String(format: "%.2f", motionData.gravity.y) + "  Z = " + String(format: "%.2f", motionData.gravity.z)
                 
                 
-                self.accDataX.append(motionData.userAcceleration.x)
-                self.accDataY.append(motionData.userAcceleration.y)
-                self.accDataZ.append(motionData.userAcceleration.z)
+                self.recording!.acc_x.append(motionData.userAcceleration.x)
+                self.recording!.acc_y.append(motionData.userAcceleration.y)
+                self.recording!.acc_z.append(motionData.userAcceleration.z)
                 
-                self.gyroDataX.append(motionData.rotationRate.x)
-                self.gyroDataY.append(motionData.rotationRate.y)
-                self.gyroDataZ.append(motionData.rotationRate.z)
+                self.recording!.gyr_x.append(motionData.rotationRate.x)
+                self.recording!.gyr_y.append(motionData.rotationRate.y)
+                self.recording!.gyr_z.append(motionData.rotationRate.z)
                 
-                self.magDataX.append(motionData.magneticField.field.x)
-                self.magDataY.append(motionData.magneticField.field.y)
-                self.magDataZ.append(motionData.magneticField.field.z)
-                self.magDataAcc.append(Double(motionData.magneticField.accuracy.rawValue))
+                self.recording!.mag_x.append(motionData.magneticField.field.x)
+                self.recording!.mag_y.append(motionData.magneticField.field.y)
+                self.recording!.mag_z.append(motionData.magneticField.field.z)
+                //self.magDataAcc.append(Double(motionData.magneticField.accuracy.rawValue))
                 
-                self.attDataRoll.append(motionData.attitude.roll)
-                self.attDataPitch.append(motionData.attitude.pitch)
-                self.attDataYaw.append(motionData.attitude.yaw)
+                self.recording!.att_roll.append(motionData.attitude.roll)
+                self.recording!.att_pitch.append(motionData.attitude.pitch)
+                self.recording!.att_yaw.append(motionData.attitude.yaw)
                 
                 if self.lastHeading == -999 {
-                    self.headingData.append(0.0)
+                    self.recording!.delta_heading.append(0.0)
                     self.lastHeading = motionData.heading
                 } else {
-                    self.headingData.append(motionData.heading - self.lastHeading)
+                    self.recording!.delta_heading.append(motionData.heading - self.lastHeading)
                     self.lastHeading = motionData.heading
                 }
                 
-                self.gravDataX.append(motionData.gravity.x)
-                self.gravDataY.append(motionData.gravity.y)
-                self.gravDataZ.append(motionData.gravity.z)
+                self.recording!.gra_x.append(motionData.gravity.x)
+                self.recording!.gra_y.append(motionData.gravity.y)
+                self.recording!.gra_z.append(motionData.gravity.z)
                 
-                self.timeData.append(self.count)
+                self.recording!.timestamps.append(self.count)
             }
         } else {
             print("Stopping deviceMotion updates")

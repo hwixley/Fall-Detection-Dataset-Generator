@@ -27,7 +27,8 @@ class PrepareRecordingViewController: UIViewController, UITextFieldDelegate, UIP
     @IBOutlet weak var statusLabel: UILabel!
     
     //MARK: Data
-    var recordingInfo: RecordingInfo? = nil
+    //var recordingInfo: RecordingInfo? = nil
+    var recording: Recording? = nil
     
     //MARK: Textfield Pickers
     var actionPicker = UIPickerView()
@@ -71,7 +72,9 @@ class PrepareRecordingViewController: UIViewController, UITextFieldDelegate, UIP
         if segue.identifier == "startRecording" {
             let nc = segue.destination as! UINavigationController
             let vc = nc.viewControllers.first as! RecordingViewController
-            vc.recordingInfo = self.recordingInfo
+            //vc.recordingInfo = self.recordingInfo
+            //vc.recording.subject_id = self.recordingInfo.
+            vc.recording = self.recording!
             vc.segue = "unwindToPrepareRecording"
         }
     }
@@ -194,7 +197,8 @@ class PrepareRecordingViewController: UIViewController, UITextFieldDelegate, UIP
             
             self.statusLabel.isHidden = true
             
-            recordingInfo = RecordingInfo(id: "", action: self.actionTextfield.text!, includesFall: self.includesFallSegmentedcontrol.selectedSegmentIndex == 1 ? true : false, fallType: self.fallTypeTextfield.text!, subjectId: self.subjectIdTextfield.text!, phonePlacement: self.placementTextfield.text!, numberOfRecordings: 1)
+            //recordingInfo = RecordingInfo(id: "", action: self.actionTextfield.text!, includesFall: self.includesFallSegmentedcontrol.selectedSegmentIndex == 1 ? true : false, fallType: self.fallTypeTextfield.text!, subjectId: self.subjectIdTextfield.text!, phonePlacement: self.placementTextfield.text!, numberOfRecordings: 1)
+            recording = Recording(subject_id: self.subjectIdTextfield.text!, fall_time: MyConstants.fallTime, fall_type: self.fallTypeTextfield.text!, recording_duration: MyConstants.recordingLength, ground_time: Double([2,2,2,2,3,3,3,3,4,4,4,5,5,5,6,6,7,7,8][Int.random(in: 0...18)]), action: self.actionTextfield.text!, phone_placement: self.placementTextfield.text!, p_ecg: [], p_hr: [], p_hr_rss: [], p_hr_rssms: [], p_hr_rss_peak: [], p_hr_rssms_peak: [], p_acc_x: [], p_acc_y: [], p_acc_z: [], acc_x: [], acc_y: [], acc_z: [], gyr_x: [], gyr_y: [], gyr_z: [], gra_x: [], gra_y: [], gra_z: [], mag_x: [], mag_y: [], mag_z: [], att_roll: [], att_pitch: [], att_yaw: [], delta_heading: [], timestamps: [])
             
             return true
         }

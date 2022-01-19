@@ -36,16 +36,16 @@ class PolarBleSdkManager : ObservableObject {
     @Published private(set) var deviceConnectionState: ConnectionState = ConnectionState.disconnected
     
     //MARK: Data variables
-    @Published var ecg: [Int32] = []
-    @Published var acc_x: [Int32] = []
-    @Published var acc_y: [Int32] = []
-    @Published var acc_z: [Int32] = []
-    @Published var hr: [UInt8] = []
-    @Published var hr_rrsms : [Int] = []
-    @Published var hr_rrsms_peak : [Int] = []
-    @Published var hr_rrs : [Int] = []
-    @Published var hr_rrs_peak : [Int] = []
-    @Published var contact : [Bool] = []
+    @Published var ecg: [Double] = []
+    @Published var acc_x: [Double] = []
+    @Published var acc_y: [Double] = []
+    @Published var acc_z: [Double] = []
+    @Published var hr: [Double] = []
+    @Published var hr_rrsms : [Double] = []
+    @Published var hr_rrsms_peak : [Double] = []
+    @Published var hr_rrs : [Double] = []
+    @Published var hr_rrs_peak : [Double] = []
+    //@Published var contact : [Bool] = []
     
     @Published var l_ecg: Int32 = 0
     @Published var l_acc_x: Int32 = 0
@@ -69,7 +69,7 @@ class PolarBleSdkManager : ObservableObject {
                 self.hr_rrsms = []
                 self.hr_rrs_peak = []
                 self.hr_rrsms_peak = []
-                self.contact = []
+                //self.contact = []
             }
         }
     }
@@ -194,7 +194,7 @@ class PolarBleSdkManager : ObservableObject {
                     case .next(let data):
                         for µv in data.samples {
                             if self.isRecording {
-                                self.ecg.append(µv)
+                                self.ecg.append(Double(µv))
                             }
                             if self.isLive {
                                 self.l_ecg = µv
@@ -230,9 +230,9 @@ class PolarBleSdkManager : ObservableObject {
                     case .next(let data):
                         for item in data.samples {
                             if self.isRecording {
-                                self.acc_x.append(item.x)
-                                self.acc_y.append(item.y)
-                                self.acc_z.append(item.z)
+                                self.acc_x.append(Double(item.x))
+                                self.acc_y.append(Double(item.y))
+                                self.acc_z.append(Double(item.z))
                             }
                             if self.isLive {
                                 self.l_acc_x = item.x
@@ -480,20 +480,20 @@ extension PolarBleSdkManager : PolarBleApiSdkModeFeatureObserver {
 extension PolarBleSdkManager : PolarBleApiDeviceHrObserver {
     func hrValueReceived(_ identifier: String, data: PolarHrData) {
         if self.isRecording {
-            self.hr.append(data.hr)
+            self.hr.append(Double(data.hr))
             if data.rrs.count == 1 {
-                self.hr_rrs.append(data.rrs[0])
+                self.hr_rrs.append(Double(data.rrs[0]))
             } else {
-                self.hr_rrs_peak.append(data.rrs[0])
-                self.hr_rrs.append(data.rrs[1])
+                self.hr_rrs_peak.append(Double(data.rrs[0]))
+                self.hr_rrs.append(Double(data.rrs[1]))
             }
             if data.rrsMs.count == 1 {
-                self.hr_rrsms.append(data.rrsMs[0])
+                self.hr_rrsms.append(Double(data.rrsMs[0]))
             } else {
-                self.hr_rrsms_peak.append(data.rrsMs[0])
-                self.hr_rrsms.append(data.rrsMs[1])
+                self.hr_rrsms_peak.append(Double(data.rrsMs[0]))
+                self.hr_rrsms.append(Double(data.rrsMs[1]))
             }
-            self.contact.append(data.contact)
+            //self.contact.append(data.contact)
         }
         if self.isLive {
             self.l_hr = data.hr
