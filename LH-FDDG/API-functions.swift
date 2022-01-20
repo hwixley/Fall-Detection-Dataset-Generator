@@ -10,11 +10,6 @@ import Alamofire
 
 let host = "http://\(MyConstants.serverIP):\(MyConstants.serverPort)"
 
-protocol DataDelegate {
-    func fetchRecordings(recordings: String)
-    func fetchUser(user: String)
-}
-
 struct Recording: Encodable, Decodable {
     var subject_id: String
     var fall_time: Double
@@ -69,7 +64,6 @@ struct User: Encodable, Decodable {
 
 class APIFunctions {
     
-    //var delegate: DataDelegate?
     static let functions = APIFunctions()
     
     func fetchRecordings() {
@@ -81,21 +75,40 @@ class APIFunctions {
         }
     }
     
-    func fetchUser(subject_id: String) -> User? {
+    func fetchUser(subject_id: String) {
         print("Fetching user with subject_id \(subject_id)...")
-        var user: User? = nil
         
-        AF.request(host + "/fetchUser", method: .get, encoding: URLEncoding.httpBody, headers: ["subject_id": subject_id]).response { response in
-            let userData = String(data: response.data!, encoding: .utf8)
-            
-            do {
-                user = try JSONDecoder().decode(User.self, from: userData!.data(using: .utf8)!)
-            } catch {
-                print("Failed to decode /fetchUser response")
+        var request = URLRequest(url: URL(string: host + "/fetchUser")!)
+        request.method = .get
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(subject_id, forHTTPHeaderField: "subject_id")
+        
+        AF.request(request).responseJSON { response in //host + "/fetchUser", method: .get, encoding: URLEncoding.httpBody, headers: ["subject_id": subject_id]).response { response in
+            switch response.result {
+                
+            case .failure(let error):
+                print("Failed to perform /fetchUser request")
+                print(error)
+                
+            case .success(let data):
+                print("Successfully performed /fetchUser request")
+
+                let json = String(data: response.data!, encoding: .utf8)!
+                let jsonData = json.data(using: .utf8)!
+                
+                do {
+                    let userList = try JSONDecoder().decode([User].self, from: jsonData)
+                    if userList.count > 0 {
+                        MyConstants.user = userList[0]
+                        print("User with subject_id \(subject_id) found")
+                    } else {
+                        print("No user found with subject_id \(subject_id)")
+                    }
+                } catch {
+                    print("Failed to decode /fetchUser response")
+                }
             }
         }
-        
-        return user
     }
     
     func createUser(user: User) {
@@ -117,11 +130,11 @@ class APIFunctions {
                     print(responseString)
                 }
                 
-            case .success(let response):
+            case .success(let data):
                 print("Successfully performed /createUser request")
                 
                 if MyConstants.user != nil {
-                    MyConstants.user!._id = response as! String
+                    MyConstants.user!._id = data as! String
                 }
             }
         }
@@ -146,9 +159,9 @@ class APIFunctions {
                     print(responseString)
                 }
                 
-            case .success(let response):
+            case .success(let data):
                 print("Successfully performed /createRecording request")
-                print(response)
+                print(data)
             }
         }
     }

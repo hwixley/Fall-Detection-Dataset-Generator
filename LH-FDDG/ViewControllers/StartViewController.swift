@@ -8,8 +8,6 @@
 import UIKit
 
 class StartViewController: UIViewController {
-    
-    //var recordingsArray = [Recording]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,27 +21,3 @@ class StartViewController: UIViewController {
     }
 
 }
-
-
-/*
-extension StartViewController: DataDelegate {
-    
-    func fetchUser(user: String) {
-        do {
-            let user = try JSONDecoder().decode(User.self, from: user.data(using: .utf8)!)
-            print(user)
-        } catch {
-            print("Failed to decode /fetchUser response")
-        }
-    }
-    
-    func fetchRecordings(recordings: String) {
-        do {
-            recordingsArray = try JSONDecoder().decode([Recording].self, from: recordings.data(using: .utf8)!)
-            print(recordingsArray)
-        } catch {
-            print("Failed to decode /fetchRecordings response")
-        }
-    }
-}
- */

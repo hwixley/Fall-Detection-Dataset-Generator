@@ -23,8 +23,10 @@ struct MyConstants {
     static var fallTime = 10.0
     static var polarDeviceID = "9F8BF424"
     static var polarManager = PolarBleSdkManager()
-    static var serverIP = "192.168.8.160"
-    static var serverPort = "8081"
+    static var serverIP = defaultIP
+    static var serverPort = defaultPort
+    static let defaultIP = "192.168.8.160"
+    static let defaultPort = "8081"
     static var user: User? = nil
 }
 

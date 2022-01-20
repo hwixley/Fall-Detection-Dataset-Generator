@@ -66,6 +66,7 @@ class SearchSubjectsViewController: UIViewController, UITableViewDelegate, UITab
             self.loadCells(subjectID: searchTextfield.text!)
             
             // Perform fetchUser request
+            APIFunctions.functions.fetchUser(subject_id: searchTextfield.text!)
         }
     }
     
