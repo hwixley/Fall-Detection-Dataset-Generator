@@ -68,11 +68,11 @@ class AddUserViewController: UIViewController, UITextFieldDelegate {
                     MyConstants.user = User(_id: "", subject_id: String(newId), name: self.nameTextfield.text!, age: Int(self.ageTextfield.text!)!, height: Int(self.heightTextfield.text!)!, weight: Int(self.weightTextfield.text!)!, is_female: self.genderSegmentedControl.selectedSegmentIndex == 2 ? true : false, medical_conditions: self.conditionsTextfield.text!)
                     APIFunctions.functions.createUser(user: MyConstants.user!)
                     
-                    /*Firestore.firestore().collection("subjects").document(String(newId)).setData(["id": String(newId)]/*, "name": self.nameTextfield.text!, "age": self.ageTextfield.text!, "height": self.heightTextfield.text!, "weight": self.weightTextfield.text!, "gender": self.genderSegmentedControl.selectedSegmentIndex == 1 ? "male" : "female", "medical_conditions": self.conditionsTextfield.text!]*/)
+                    Firestore.firestore().collection("subjects").document(String(newId)).setData(["id": String(newId)])
                     
                     Firestore.firestore().collection("subjects").document("root").updateData(["lastId": newId])
                     
-                    Firestore.firestore().collection("subjects").document(String(newId)).collection("recordingStats").document("root").setData(getDefaultStats())*/
+                    Firestore.firestore().collection("subjects").document(String(newId)).collection("recordingStats").document("root").setData(getDefaultStats())
                     
                     let ac = UIAlertController(title: "Your subject ID is: " + String(newId), message: "Make sure to remember your number!", preferredStyle: UIAlertController.Style.alert)
                     ac.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))

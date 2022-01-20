@@ -62,11 +62,15 @@ class SearchSubjectsViewController: UIViewController, UITableViewDelegate, UITab
         self.tapOutsideKB.isEnabled = false
         
         if Int(searchTextfield.text!) != nil || searchTextfield.text! == "" {
-            self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            if self.recordings.count > 0 {
+                self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            }
             self.loadCells(subjectID: searchTextfield.text!)
             
-            // Perform fetchUser request
-            APIFunctions.functions.fetchUser(subject_id: searchTextfield.text!)
+            if self.searchTextfield.text! != "" {
+                // Perform fetchUser request
+                APIFunctions.functions.fetchUser(subject_id: searchTextfield.text!)
+            }
         }
     }
     

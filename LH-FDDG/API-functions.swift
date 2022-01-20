@@ -83,7 +83,7 @@ class APIFunctions {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue(subject_id, forHTTPHeaderField: "subject_id")
         
-        AF.request(request).responseJSON { response in //host + "/fetchUser", method: .get, encoding: URLEncoding.httpBody, headers: ["subject_id": subject_id]).response { response in
+        AF.request(request).responseJSON { response in
             switch response.result {
                 
             case .failure(let error):
@@ -135,6 +135,7 @@ class APIFunctions {
                 
                 if MyConstants.user != nil {
                     MyConstants.user!._id = data as! String
+                    print("id: \(data as! String)")
                 }
             }
         }
