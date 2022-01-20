@@ -37,6 +37,7 @@ class PrepareRecordingViewController: UIViewController, UITextFieldDelegate, UIP
     
     //MARK: Temporary variables
     var clickedTxtf : UITextField? = nil
+    var userFetched = false
     
     
     override func viewDidLoad() {
@@ -92,13 +93,21 @@ class PrepareRecordingViewController: UIViewController, UITextFieldDelegate, UIP
         }
         
         if self.validateInputs() {
-            self.performSegue(withIdentifier: "startRecording", sender: self)
+            if MyConstants.user != nil && MyConstants.user!.subject_id == self.subjectIdTextfield.text! && MyConstants.user!._id != "" {
+                self.performSegue(withIdentifier: "startRecording", sender: self)
+            } else {
+                self.subjectIdLabel.textColor = UIColor.orange
+            }
         }
     }
     
     @IBAction func tapOutsideKB(_ sender: UITapGestureRecognizer) {
         self.clickedTxtf!.resignFirstResponder()
         self.tapOutsideKB.isEnabled = false
+        
+        if self.clickedTxtf! == self.subjectIdTextfield && subjectIdTextfield.text! != "" {
+            APIFunctions.functions.fetchUser(subject_id: self.subjectIdTextfield.text!)
+        }
     }
     
     @IBAction func changeIncludesFallSegment(_ sender: UISegmentedControl) {
@@ -189,7 +198,6 @@ class PrepareRecordingViewController: UIViewController, UITextFieldDelegate, UIP
             self.subjectIdLabel.textColor = errorTextColor
             isValid = false
         }
-        
         if !isValid {
             self.statusLabel.isHidden = false
             return false
