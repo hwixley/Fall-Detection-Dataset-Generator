@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import FirebaseFirestore
 
 let host = "http://\(MyConstants.serverIP):\(MyConstants.serverPort)"
 
@@ -163,6 +164,22 @@ class APIFunctions {
             case .success(let data):
                 print("Successfully performed /createRecording request")
                 print(data)
+                
+                //Add to global stats
+                Firestore.firestore().collection("stats").document("root").getDocument { docSnapshot, e in
+                    
+                    if e == nil && docSnapshot != nil {
+                        Firestore.firestore().collection("stats").document("root").updateData([formatStat(action: recording.action, fall: recording.fall_type): docSnapshot!.data()![formatStat(action: recording.action, fall: recording.fall_type)] as! Int + 1])
+                    }
+                }
+                
+                //Add to subject stats
+                Firestore.firestore().collection("subjects").document(recording.subject_id).collection("recordingStats").document("root").getDocument { docSnapshot, e in
+                    
+                    if e == nil && docSnapshot != nil {
+                        Firestore.firestore().collection("subjects").document(recording.subject_id).collection("recordingStats").document("root").updateData([formatStat(action: recording.action, fall: recording.fall_type): docSnapshot!.data()![formatStat(action: recording.action, fall: recording.fall_type)] as! Int + 1])
+                    }
+                }
             }
         }
     }
