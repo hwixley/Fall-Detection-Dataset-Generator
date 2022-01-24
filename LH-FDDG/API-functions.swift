@@ -52,14 +52,14 @@ struct User: Encodable, Decodable {
     var _id: String
     var subject_id: String
     var name: String
-    var age: Int
+    var yob: Int
     var height: Int //cm
     var weight: Int //kg
     var is_female: Bool
     var medical_conditions: String
     
     func parseHeaders() -> [String: AnyObject] {
-        return ["subject_id": subject_id as AnyObject, "name": name as AnyObject, "age": age as AnyObject, "height": height as AnyObject, "weight": weight as AnyObject, "is_female": is_female as AnyObject, "medical_conditions": medical_conditions as AnyObject]
+        return ["subject_id": subject_id as AnyObject, "name": name as AnyObject, "yob": yob as AnyObject, "height": height as AnyObject, "weight": weight as AnyObject, "is_female": is_female as AnyObject, "medical_conditions": medical_conditions as AnyObject]
     }
 }
 
