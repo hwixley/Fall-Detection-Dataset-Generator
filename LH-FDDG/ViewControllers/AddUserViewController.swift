@@ -137,10 +137,6 @@ class AddUserViewController: UIViewController, UITextFieldDelegate {
             self.genderLabel.textColor = errorColor
             isValid = false
         }
-        if self.conditionsTextfield.text == "" {
-            self.conditionsLabel.textColor = errorColor
-            isValid = false
-        }
         
         if !isValid {
             self.statusLabel.isHidden = false

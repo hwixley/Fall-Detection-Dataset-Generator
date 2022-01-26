@@ -9,8 +9,6 @@ import Foundation
 import Alamofire
 import FirebaseFirestore
 
-let host = "http://\(MyConstants.serverIP):\(MyConstants.serverPort)"
-
 struct Recording: Encodable, Decodable {
     var subject_id: String
     var fall_time: Double
@@ -67,10 +65,14 @@ class APIFunctions {
     
     static let functions = APIFunctions()
     
+    func getHost() -> String {
+        return "http://\(MyConstants.serverIP):\(MyConstants.serverPort)"
+    }
+    
     func fetchRecordings() {
         print("Fetching recordings...")
         
-        AF.request(host + "/fetchRecordings").response { response in
+        AF.request(getHost() + "/fetchRecordings").response { response in
             let data = String(data: response.data!, encoding: .utf8)
             //self.delegate?.fetchRecordings(recordings: data!)
         }
@@ -79,7 +81,7 @@ class APIFunctions {
     func fetchUser(subject_id: String) {
         print("Fetching user with subject_id \(subject_id)...")
         
-        var request = URLRequest(url: URL(string: host + "/fetchUser")!)
+        var request = URLRequest(url: URL(string: getHost() + "/fetchUser")!)
         request.method = .get
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue(subject_id, forHTTPHeaderField: "subject_id")
@@ -115,7 +117,7 @@ class APIFunctions {
     func createUser(user: User) {
         print("Creating user...")
         
-        var request = URLRequest(url: URL(string: host + "/createUser")!)
+        var request = URLRequest(url: URL(string: getHost() + "/createUser")!)
         request.method = .post
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try! JSONSerialization.data(withJSONObject: user.parseHeaders())
@@ -145,7 +147,7 @@ class APIFunctions {
     func createRecording(recording: Recording) {
         print("Creating recording...")
         
-        var request = URLRequest(url: URL(string: host + "/createRecording")!)
+        var request = URLRequest(url: URL(string: getHost() + "/createRecording")!)
         request.method = .post
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try! JSONSerialization.data(withJSONObject: recording.parseHeaders())
