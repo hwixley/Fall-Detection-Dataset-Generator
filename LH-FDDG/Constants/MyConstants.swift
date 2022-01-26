@@ -29,6 +29,7 @@ struct MyConstants {
     static let defaultPort = "8081"
     static var user: User? = nil
     static var isServerReachable: Bool? = nil
+    static var isPingingServer = false
 }
 
 

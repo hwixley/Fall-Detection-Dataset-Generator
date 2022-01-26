@@ -47,8 +47,7 @@ class mnSettingsViewController: UIViewController, UITextFieldDelegate {
         self.ipTextfield.delegate = self
         self.portTextfield.delegate = self
         
-        APIFunctions.functions.ping()
-        self.connectionLabel.text = "Server reachability: \(MyConstants.isServerReachable == nil ? "..." : MyConstants.isServerReachable! ? "reachable": "unreachable")"
+        pingServer(overwritePing: false)
     }
     
     //MARK: Actions
@@ -89,8 +88,7 @@ class mnSettingsViewController: UIViewController, UITextFieldDelegate {
         if ipTextfield.text != nil && ipTextfield.text! != "" && ipTextfield.text!.withCString({ cstring in inet_pton(AF_INET, cstring, &sin.sin_addr) }) == 1 {
             MyConstants.serverIP = ipTextfield.text!
             
-            APIFunctions.functions.ping()
-            self.connectionLabel.text = "Server reachability: \(MyConstants.isServerReachable == nil ? "..." : MyConstants.isServerReachable! ? "reachable": "unreachable")"
+            pingServer(overwritePing: true)
         } else {
             ipLabel.textColor = UIColor.red
         }
@@ -102,8 +100,7 @@ class mnSettingsViewController: UIViewController, UITextFieldDelegate {
         if portTextfield.text != nil && portTextfield.text! != "" {
             MyConstants.serverPort = portTextfield.text!
             
-            APIFunctions.functions.ping()
-            self.connectionLabel.text = "Server reachability: \(MyConstants.isServerReachable == nil ? "..." : MyConstants.isServerReachable! ? "reachable": "unreachable")"
+            pingServer(overwritePing: true)
         } else {
             portLabel.textColor = UIColor.red
         }
@@ -118,5 +115,14 @@ class mnSettingsViewController: UIViewController, UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         self.tapOutsideKB.isEnabled = true
         self.clickedTextfield = textField
+    }
+    
+    func pingServer(overwritePing: Bool) {
+        if !MyConstants.isPingingServer || overwritePing {
+            APIFunctions.functions.ping(completion: { success in
+                self.connectionLabel.text = "Server reachability: \(MyConstants.isServerReachable == nil ? "searching..." : MyConstants.isServerReachable! ? "reachable": "unreachable")"
+            })
+        }
+        self.connectionLabel.text = "Server reachability: \(MyConstants.isServerReachable == nil ? "searching..." : MyConstants.isServerReachable! ? "reachable": "unreachable")"
     }
 }

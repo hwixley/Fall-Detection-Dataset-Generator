@@ -186,8 +186,10 @@ class APIFunctions {
         }
     }
     
-    func ping() {
+    func ping(completion: @escaping ((Bool) -> Void)) {
         print("Pinging server...")
+        MyConstants.isServerReachable = nil
+        MyConstants.isPingingServer = true
         
         var request = URLRequest(url: URL(string: getHost() + "/ping")!)
         request.method = .head
@@ -199,10 +201,13 @@ class APIFunctions {
                 print("Failed to perform /ping request")
                 print(error)
                 MyConstants.isServerReachable = false
+                MyConstants.isPingingServer = false
+                completion(false)
                 
             case .success(_):
                 print("Successfully performed /ping request")
                 MyConstants.isServerReachable = true
+                completion(true)
             }
         }
     }
