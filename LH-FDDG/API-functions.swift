@@ -185,4 +185,25 @@ class APIFunctions {
             }
         }
     }
+    
+    func ping() {
+        print("Pinging server...")
+        
+        var request = URLRequest(url: URL(string: getHost() + "/ping")!)
+        request.method = .head
+        
+        AF.request(request).responseJSON { response in
+            switch response.result {
+                
+            case .failure(let error):
+                print("Failed to perform /ping request")
+                print(error)
+                MyConstants.isServerReachable = false
+                
+            case .success(_):
+                print("Successfully performed /ping request")
+                MyConstants.isServerReachable = true
+            }
+        }
+    }
 }

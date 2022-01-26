@@ -20,6 +20,7 @@ class mnSettingsViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var fallLabel: UILabel!
     @IBOutlet weak var ipLabel: UILabel!
     @IBOutlet weak var portLabel: UILabel!
+    @IBOutlet weak var connectionLabel: UILabel!
     
     //MARK: Input properties
     @IBOutlet var tapOutsideKB: UITapGestureRecognizer!
@@ -45,6 +46,9 @@ class mnSettingsViewController: UIViewController, UITextFieldDelegate {
         self.fallTextfield.delegate = self
         self.ipTextfield.delegate = self
         self.portTextfield.delegate = self
+        
+        APIFunctions.functions.ping()
+        self.connectionLabel.text = "Server reachability: \(MyConstants.isServerReachable == nil ? "..." : MyConstants.isServerReachable! ? "reachable": "unreachable")"
     }
     
     //MARK: Actions
@@ -84,6 +88,9 @@ class mnSettingsViewController: UIViewController, UITextFieldDelegate {
         
         if ipTextfield.text != nil && ipTextfield.text! != "" && ipTextfield.text!.withCString({ cstring in inet_pton(AF_INET, cstring, &sin.sin_addr) }) == 1 {
             MyConstants.serverIP = ipTextfield.text!
+            
+            APIFunctions.functions.ping()
+            self.connectionLabel.text = "Server reachability: \(MyConstants.isServerReachable == nil ? "..." : MyConstants.isServerReachable! ? "reachable": "unreachable")"
         } else {
             ipLabel.textColor = UIColor.red
         }
@@ -94,6 +101,9 @@ class mnSettingsViewController: UIViewController, UITextFieldDelegate {
         
         if portTextfield.text != nil && portTextfield.text! != "" {
             MyConstants.serverPort = portTextfield.text!
+            
+            APIFunctions.functions.ping()
+            self.connectionLabel.text = "Server reachability: \(MyConstants.isServerReachable == nil ? "..." : MyConstants.isServerReachable! ? "reachable": "unreachable")"
         } else {
             portLabel.textColor = UIColor.red
         }

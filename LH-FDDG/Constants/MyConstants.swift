@@ -28,6 +28,7 @@ struct MyConstants {
     static let defaultIP = "192.168.8.160"
     static let defaultPort = "8081"
     static var user: User? = nil
+    static var isServerReachable: Bool? = nil
 }
 
 
