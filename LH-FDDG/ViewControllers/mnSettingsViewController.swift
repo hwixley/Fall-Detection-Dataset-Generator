@@ -83,9 +83,9 @@ class mnSettingsViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func updateIP(_ sender: UIButton) {
         self.clickedTextfield.resignFirstResponder()
-        var sin = sockaddr_in()
+        //var sin = sockaddr_in()
         
-        if ipTextfield.text != nil && ipTextfield.text! != "" && ipTextfield.text!.withCString({ cstring in inet_pton(AF_INET, cstring, &sin.sin_addr) }) == 1 {
+        if ipTextfield.text != nil && ipTextfield.text! != "" { //}&& ipTextfield.text!.withCString({ cstring in inet_pton(AF_INET, cstring, &sin.sin_addr) }) == 1 {
             MyConstants.serverIP = ipTextfield.text!
             
             pingServer(overwritePing: true)
