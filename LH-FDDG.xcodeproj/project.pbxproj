@@ -26,6 +26,9 @@
 		D09DE5B726947042008B5EB9 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09DE5B626947042008B5EB9 /* StartViewController.swift */; };
 		D09DE5B92694704A008B5EB9 /* PrepareRecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09DE5B82694704A008B5EB9 /* PrepareRecordingViewController.swift */; };
 		D09DE5BB26947050008B5EB9 /* RecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09DE5BA26947050008B5EB9 /* RecordingViewController.swift */; };
+		D0BCE4C927A401C50052CC9B /* RingBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCE4C827A401C50052CC9B /* RingBuffer.swift */; };
+		D0BCE4CB27A40B8A0052CC9B /* RecordingChunk.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCE4CA27A40B8A0052CC9B /* RecordingChunk.swift */; };
+		D0BCE4CD27A4111D0052CC9B /* Buffer-API-Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCE4CC27A4111D0052CC9B /* Buffer-API-Functions.swift */; };
 		D0DCBC18276E2107001006C7 /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DCBC17276E2107001006C7 /* ConnectViewController.swift */; };
 		D0DCBC1A276E5F58001006C7 /* PolarBleSdkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DCBC19276E5F58001006C7 /* PolarBleSdkManager.swift */; };
 		D0DCBC1C276E61E8001006C7 /* PolarConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DCBC1B276E61E8001006C7 /* PolarConnectionView.swift */; };
@@ -60,6 +63,9 @@
 		D09DE5B626947042008B5EB9 /* StartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		D09DE5B82694704A008B5EB9 /* PrepareRecordingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrepareRecordingViewController.swift; sourceTree = "<group>"; };
 		D09DE5BA26947050008B5EB9 /* RecordingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingViewController.swift; sourceTree = "<group>"; };
+		D0BCE4C827A401C50052CC9B /* RingBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingBuffer.swift; sourceTree = "<group>"; };
+		D0BCE4CA27A40B8A0052CC9B /* RecordingChunk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingChunk.swift; sourceTree = "<group>"; };
+		D0BCE4CC27A4111D0052CC9B /* Buffer-API-Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Buffer-API-Functions.swift"; sourceTree = "<group>"; };
 		D0DCBC17276E2107001006C7 /* ConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectViewController.swift; sourceTree = "<group>"; };
 		D0DCBC19276E5F58001006C7 /* PolarBleSdkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolarBleSdkManager.swift; sourceTree = "<group>"; };
 		D0DCBC1B276E61E8001006C7 /* PolarConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolarConnectionView.swift; sourceTree = "<group>"; };
@@ -103,10 +109,14 @@
 		D0216FBC269485C4008E21A9 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D0F7AAE22797270600611182 /* API-functions.swift */,
 				D0216FBD269485DA008E21A9 /* Recording.swift */,
 				D0DCBC19276E5F58001006C7 /* PolarBleSdkManager.swift */,
 				D0DCBC1B276E61E8001006C7 /* PolarConnectionView.swift */,
 				D0DCBC1F276F6B7A001006C7 /* PolarDataView.swift */,
+				D0BCE4C827A401C50052CC9B /* RingBuffer.swift */,
+				D0BCE4CA27A40B8A0052CC9B /* RecordingChunk.swift */,
+				D0BCE4CC27A4111D0052CC9B /* Buffer-API-Functions.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -152,7 +162,6 @@
 				D0290D9226946B1400BE3900 /* LaunchScreen.storyboard */,
 				D09DE5A826946E97008B5EB9 /* GoogleService-Info.plist */,
 				D0290D9526946B1400BE3900 /* Info.plist */,
-				D0F7AAE22797270600611182 /* API-functions.swift */,
 			);
 			path = "LH-FDDG";
 			sourceTree = "<group>";
@@ -296,10 +305,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0BCE4C927A401C50052CC9B /* RingBuffer.swift in Sources */,
 				D0DCBC18276E2107001006C7 /* ConnectViewController.swift in Sources */,
 				D0216FBE269485DA008E21A9 /* Recording.swift in Sources */,
 				D0216FC52694EABB008E21A9 /* SearchSubjectsViewController.swift in Sources */,
 				D0F7AAE32797270600611182 /* API-functions.swift in Sources */,
+				D0BCE4CB27A40B8A0052CC9B /* RecordingChunk.swift in Sources */,
 				D0857D98269F543500510F12 /* LiveSensorsViewController.swift in Sources */,
 				D0216FC32694EAAD008E21A9 /* AddUserViewController.swift in Sources */,
 				D0DCBC20276F6B7A001006C7 /* PolarDataView.swift in Sources */,
@@ -307,6 +318,7 @@
 				D0DCBC1C276E61E8001006C7 /* PolarConnectionView.swift in Sources */,
 				D0216FC72694EAC1008E21A9 /* MenuViewController.swift in Sources */,
 				D09DE5BB26947050008B5EB9 /* RecordingViewController.swift in Sources */,
+				D0BCE4CD27A4111D0052CC9B /* Buffer-API-Functions.swift in Sources */,
 				D09DE5B726947042008B5EB9 /* StartViewController.swift in Sources */,
 				D0857D962699FC6300510F12 /* RecordingTableViewCell.swift in Sources */,
 				D09DE5B92694704A008B5EB9 /* PrepareRecordingViewController.swift in Sources */,

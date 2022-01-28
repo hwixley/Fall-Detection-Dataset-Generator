@@ -51,6 +51,8 @@ class PolarBleSdkManager : ObservableObject {
     @Published var l_hr_rrsms : Int = 0
     @Published var l_hr_rrs : Int = 0
     
+    @Published var battery : UInt = -1
+    
     
     //MARK: Status variables
     @Published var isRecording: Bool = false {
@@ -190,7 +192,7 @@ class PolarBleSdkManager : ObservableObject {
                             if self.isLive {
                                 self.l_ecg = µv
                             }
-                            NSLog("    µV: \(µv)")
+                            //NSLog("    µV: \(µv)")
                         }
                     case .error(let err):
                         NSLog("ECG stream failed: \(err)")
@@ -230,7 +232,7 @@ class PolarBleSdkManager : ObservableObject {
                                 self.l_acc_y = item.y
                                 self.l_acc_z = item.z
                             }
-                            NSLog("    x: \(item.x) y: \(item.y) z: \(item.z)")
+                            //NSLog("    x: \(item.x) y: \(item.y) z: \(item.z)")
                         }
                     case .error(let err):
                         NSLog("ACC stream failed: \(err)")
@@ -263,7 +265,7 @@ class PolarBleSdkManager : ObservableObject {
                     case .next(let data):
                         if(data.type == OhrDataType.ppg3_ambient1) {
                             for item in data.samples {
-                                NSLog("    ppg0: \(item[0]) ppg1: \(item[1]) ppg2: \(item[2]) ambient: \(item[3])")
+                                //NSLog("    ppg0: \(item[0]) ppg1: \(item[1]) ppg2: \(item[2]) ambient: \(item[3])")
                             }
                         }
                     case .error(let err):
@@ -289,9 +291,9 @@ class PolarBleSdkManager : ObservableObject {
                 .subscribe{ e in
                     switch e {
                     case .next(let data):
-                        for item in data.samples {
-                            NSLog("    PPI: \(item.ppInMs) sample.blockerBit: \(item.blockerBit)  errorEstimate: \(item.ppErrorEstimate)")
-                        }
+                        /*for item in data.samples {
+                            //NSLog("    PPI: \(item.ppInMs) sample.blockerBit: \(item.blockerBit)  errorEstimate: \(item.ppErrorEstimate)")
+                        }*/
                     case .error(let err):
                         NSLog("PPI stream failed: \(err)")
                         self.ppiEnabled = false
@@ -483,14 +485,14 @@ extension PolarBleSdkManager : PolarBleApiDeviceHrObserver {
                 self.l_hr_rrsms = data.rrsMs.count == 1 ? data.rrsMs[0] : data.rrsMs[1]
             }
         }
-        NSLog("(\(identifier)) HR value: \(data.hr) rrsMs: \(data.rrsMs) rrs: \(data.rrs) contact: \(data.contact) contact supported: \(data.contactSupported)")
+        //NSLog("(\(identifier)) HR value: \(data.hr) rrsMs: \(data.rrsMs) rrs: \(data.rrs) contact: \(data.contact) contact supported: \(data.contactSupported)")
     }
 }
 
 // MARK: - PolarBleApiLogger
 extension PolarBleSdkManager : PolarBleApiLogger {
     func message(_ str: String) {
-        NSLog("Polar SDK log:  \(str)")
+        //NSLog("Polar SDK log:  \(str)")
     }
 }
 
