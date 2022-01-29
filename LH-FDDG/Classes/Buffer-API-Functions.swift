@@ -13,6 +13,7 @@ class BufferAPI {
     var postQueue: PostQueue? = nil
     var postIndex = 0
     var lastChunkID = ""
+    var lastTriedChunkID = ""
     
     // Queue Functions
     func popFromQueue(idx: Int)  {
@@ -25,7 +26,6 @@ class BufferAPI {
     func pushOntoQueue(chunk: RecordingChunk) {
         print("push onto queue...")
         self.postQueue!.queue.append(chunk)
-        self.postQueue!.meta.chunk_ids.append(chunk._id)
         
         postChunk()
     }
@@ -33,8 +33,13 @@ class BufferAPI {
     func sendRemainingChunks() {
         print("send remaining chunks...")
         self.postIndex = 0
+        /*print(self.postQueue!.queue)
+        print(self.postQueue!.meta.chunk_ids)
         
-        while !self.postQueue!.queue.isEmpty {
+        var leftoverIDs = Set(self.postQueue!.getIDs()).subtracting(self.postQueue!.meta.chunk_ids)
+        print(leftoverIDs)*/
+        
+        for i in 0..<self.postQueue!.queue.count  {
             postChunk()
         }
         postMeta()
@@ -116,13 +121,16 @@ class BufferAPI {
         print("Posting recording chunk...")
         
         print(self.postQueue!.meta.chunk_ids.count)
+        print(self.postQueue!.queue.count)
         print(self.postIndex)
         
         if self.postIndex < self.postQueue!.queue.count {
             let chunk = self.postQueue!.queue[postIndex]
             let idx = postIndex
             
+            print("checking id: \(chunk._id)")
             if chunk._id != lastChunkID {
+                print("id passed")
                 self.postIndex = self.postIndex + 1
                 
                 var request = URLRequest(url: URL(string: getHost() + "/createChunk")!)
@@ -139,6 +147,17 @@ class BufferAPI {
                         
                         if let data = response.data, let responseString = String(data: data, encoding: .utf8) {
                             print(responseString)
+                            if responseString == "duplicate" {
+                                print("response says duplicate found")
+                            }
+                        }
+                        
+                        if self.postQueue!.meta.chunk_ids.contains(chunk._id) {
+                            print("duplicate found!")
+                            self.popFromQueue(idx: idx)
+                            if self.postIndex > 0 {
+                                self.postIndex = self.postIndex - 1
+                            }
                         }
                         
                     case .success(let data):
@@ -150,11 +169,12 @@ class BufferAPI {
                         if self.postIndex > 0 {
                             self.postIndex = self.postIndex - 1
                         }
+                        self.postQueue!.meta.chunk_ids.append(chunk._id)
                     }
                 }
-            } else {
-                print("trying to post same chunk")
             }
+        } else if self.postIndex > 0 {
+            self.postIndex = self.postQueue!.queue.count - 1
         }
     }
     

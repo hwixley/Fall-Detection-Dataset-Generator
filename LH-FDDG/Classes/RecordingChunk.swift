@@ -66,4 +66,12 @@ struct RecordingChunk: Encodable, Decodable {
 struct PostQueue {
     var queue: [RecordingChunk]
     var meta: RecordingMeta
+    
+    func getIDs() -> [String] {
+        var output : [String] = []
+        for chunk in queue {
+            output.append(chunk._id)
+        }
+        return output
+    }
 }

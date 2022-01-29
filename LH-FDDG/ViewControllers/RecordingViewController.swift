@@ -37,7 +37,6 @@ class RecordingViewController: UIViewController {
     var isComplete = false
     var shouldStop = false
     var timer : Timer? = nil
-    var duration = 0.0
     
     //MARK: Motion based Variables
     let motionManager = CMMotionManager()
@@ -63,6 +62,7 @@ class RecordingViewController: UIViewController {
         self.hrContainerView.isHidden = true
         self.stopButton.isHidden = true
         self.stopButton.isHidden = true
+        self.cancelButton.isHidden = true
         
         self.timerLabel.textColor = UIColor.black
         let timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
@@ -100,14 +100,14 @@ class RecordingViewController: UIViewController {
         //Add to global stats
         Firestore.firestore().collection("stats").document("root2").getDocument { docSnapshot, e in
             if e == nil && docSnapshot != nil {
-                Firestore.firestore().collection("stats").document("root2").updateData(["num_recordings": docSnapshot!.data()!["num_recordings"] as! Int + 1, "total_duration": docSnapshot!.data()!["total_duration"] as! Int + Int(self.duration), "num_falls": docSnapshot!.data()!["num_falls"] as! Int + self.numFalls])
+                Firestore.firestore().collection("stats").document("root2").updateData(["num_recordings": docSnapshot!.data()!["num_recordings"] as! Int + 1, "total_duration": docSnapshot!.data()!["total_duration"] as! Int + Int(self.count), "num_falls": docSnapshot!.data()!["num_falls"] as! Int + self.numFalls])
             }
         }
 
         //Add to subject stats
         Firestore.firestore().collection("subjects").document(self.buffer.postQueue!.meta.subject_id).getDocument { docSnapshot, e in
             if e == nil && docSnapshot != nil {
-                Firestore.firestore().collection("subjects").document(self.buffer.postQueue!.meta.subject_id).updateData(["num_recordings": docSnapshot!.data()!["num_recordings"] as! Int + 1, "total_duration": docSnapshot!.data()!["total_duration"] as! Int + Int(self.duration), "num_falls": docSnapshot!.data()!["num_falls"] as! Int + self.numFalls])
+                Firestore.firestore().collection("subjects").document(self.buffer.postQueue!.meta.subject_id).updateData(["num_recordings": docSnapshot!.data()!["num_recordings"] as! Int + 1, "total_duration": docSnapshot!.data()!["total_duration"] as! Int + Int(self.count), "num_falls": docSnapshot!.data()!["num_falls"] as! Int + self.numFalls])
             }
         }
         
@@ -170,11 +170,12 @@ class RecordingViewController: UIViewController {
                 if self.fallTime != -1 && round(self.count*100)/100 >= self.fallTime {
                     if round(self.count*100)/100 == self.fallTime {
                         AudioServicesPlayAlertSound(SystemSoundID(1322))
+                        self.numFalls += 1
                     } else {
                         self.currChunk.labels.append(true)
                     }
                     
-                    if round(self.count*100)/100 == (self.fallTime - self.groundTime) {
+                    if round(self.count*100)/100 == self.groundTime {
                         AudioServicesPlayAlertSound(SystemSoundID(1321))
                         self.fallTime = -1.0
                         self.groundTime = -1.0
@@ -189,6 +190,9 @@ class RecordingViewController: UIViewController {
                 
                 // Checks if recording should be stopped
                 if self.shouldStop && (round(self.count*100)/100).truncatingRemainder(dividingBy: 1) == 0 {
+                    if self.currChunk.labels.count > 0 {
+                        self.buffer.pushOntoQueue(chunk: self.currChunk)
+                    }
                     stopRecording()
                 } else {
                     self.count += 0.1
