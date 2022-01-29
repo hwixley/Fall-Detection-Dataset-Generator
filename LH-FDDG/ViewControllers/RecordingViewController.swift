@@ -193,6 +193,8 @@ class RecordingViewController: UIViewController {
                     if self.currChunk.labels.count > 0 {
                         self.buffer.pushOntoQueue(chunk: self.currChunk)
                     }
+                    self.buffer.postQueue!.meta.recording_duration = self.count
+                    
                     stopRecording()
                 } else {
                     self.count += 0.1
