@@ -51,18 +51,14 @@ class PolarBleSdkManager : ObservableObject {
     @Published var l_hr_rrsms : Int = 0
     @Published var l_hr_rrs : Int = 0
     
-    @Published var battery : UInt = -1
+    @Published var battery : UInt = 0
     
     
     //MARK: Status variables
     @Published var isRecording: Bool = false {
         didSet {
             if isRecording {
-                self.ecg = []
-                self.acc_x = []
-                self.acc_y = []
-                self.acc_z = []
-                self.contact = []
+                resetData()
             }
         }
     }
@@ -80,6 +76,13 @@ class PolarBleSdkManager : ObservableObject {
         }
     }
     
+    func resetData() {
+        self.ecg = []
+        self.acc_x = []
+        self.acc_y = []
+        self.acc_z = []
+        self.contact = []
+    }
     
     init() {
         self.bluetoothPowerOn = api.isBlePowered
@@ -291,6 +294,7 @@ class PolarBleSdkManager : ObservableObject {
                 .subscribe{ e in
                     switch e {
                     case .next(let data):
+                        _ = 0
                         /*for item in data.samples {
                             //NSLog("    PPI: \(item.ppInMs) sample.blockerBit: \(item.blockerBit)  errorEstimate: \(item.ppErrorEstimate)")
                         }*/

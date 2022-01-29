@@ -9,15 +9,39 @@ import Foundation
 import Alamofire
 import FirebaseFirestore
 
-class BufferAPIFunctions {
+class BufferAPI {
+    var postQueue: PostQueue? = nil
+    var postIndex = 0
+    var lastChunkID = ""
     
-    static let functions = BufferAPIFunctions()
-    static let queue: PostQueue? = nil
-    
-    mutating func pushChunk(chunk: RecordingChunk) {
-        
+    // Queue Functions
+    func popFromQueue(idx: Int)  {
+        print("popping from queue...")
+        if idx < self.postQueue!.queue.count {
+            self.postQueue!.queue.remove(at: idx)
+        }
     }
     
+    func pushOntoQueue(chunk: RecordingChunk) {
+        print("push onto queue...")
+        self.postQueue!.queue.append(chunk)
+        self.postQueue!.meta.chunk_ids.append(chunk._id)
+        
+        postChunk()
+    }
+    
+    func sendRemainingChunks() {
+        print("send remaining chunks...")
+        self.postIndex = 0
+        
+        while !self.postQueue!.queue.isEmpty {
+            postChunk()
+        }
+        postMeta()
+    }
+    
+    
+    // API Functions
     func getHost() -> String {
         return "http://\(MyConstants.serverIP):\(MyConstants.serverPort)"
     }
@@ -30,14 +54,14 @@ class BufferAPIFunctions {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue(subject_id, forHTTPHeaderField: "subject_id")
         
-        AF.request(request).responseJSON { response in
+        AF.request(request).responseString { response in
             switch response.result {
                 
             case .failure(let error):
                 print("Failed to perform /fetchUser request")
                 print(error)
                 
-            case .success(let data):
+            case .success(_):
                 print("Successfully performed /fetchUser request")
 
                 let json = String(data: response.data!, encoding: .utf8)!
@@ -66,7 +90,7 @@ class BufferAPIFunctions {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try! JSONSerialization.data(withJSONObject: user.parseHeaders())
         
-        AF.request(request).responseJSON { response in
+        AF.request(request).responseString { response in
             switch response.result {
                 
             case .failure(let error):
@@ -81,43 +105,86 @@ class BufferAPIFunctions {
                 print("Successfully performed /createUser request")
                 
                 if MyConstants.user != nil {
-                    MyConstants.user!._id = data as! String
-                    print("id: \(data as! String)")
+                    MyConstants.user!._id = data
+                    print("id: \(data)")
                 }
             }
         }
     }
     
-    func postChunk(chunk: RecordingChunk, completion: @escaping ((Bool) -> Void)) {
-        print("Creating recording chunk...")
+    func postChunk() {
+        print("Posting recording chunk...")
         
-        var request = URLRequest(url: URL(string: getHost() + "/createRecording")!)
+        print(self.postQueue!.meta.chunk_ids.count)
+        print(self.postIndex)
+        
+        if self.postIndex < self.postQueue!.queue.count {
+            let chunk = self.postQueue!.queue[postIndex]
+            let idx = postIndex
+            
+            if chunk._id != lastChunkID {
+                self.postIndex = self.postIndex + 1
+                
+                var request = URLRequest(url: URL(string: getHost() + "/createChunk")!)
+                request.method = .post
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.httpBody = try! JSONSerialization.data(withJSONObject: chunk.parseHeaders())
+                
+                AF.request(request).responseString { response in
+                    switch response.result {
+                        
+                    case .failure(let error):
+                        print("Failed to perform /createChunk request")
+                        print(error)
+                        
+                        if let data = response.data, let responseString = String(data: data, encoding: .utf8) {
+                            print(responseString)
+                        }
+                        
+                    case .success(let data):
+                        print("Successfully performed /createChunk request")
+                        print(data)
+                        self.lastChunkID = chunk._id
+                        
+                        self.popFromQueue(idx: idx)
+                        if self.postIndex > 0 {
+                            self.postIndex = self.postIndex - 1
+                        }
+                    }
+                }
+            } else {
+                print("trying to post same chunk")
+            }
+        }
+    }
+    
+    func postMeta() {
+        print("Posting recording meta...")
+        
+        let meta = self.postQueue!.meta
+        
+        var request = URLRequest(url: URL(string: getHost() + "/createMeta")!)
         request.method = .post
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try! JSONSerialization.data(withJSONObject: chunk.parseHeaders())
+        request.httpBody = try! JSONSerialization.data(withJSONObject: meta.parseHeaders())
         
-        AF.request(request).responseJSON { response in
+        AF.request(request).responseString { response in
             switch response.result {
                 
             case .failure(let error):
-                print("Failed to perform /createRecording request")
+                print("Failed to perform /createMeta request")
                 print(error)
                 
                 if let data = response.data, let responseString = String(data: data, encoding: .utf8) {
                     print(responseString)
                 }
-                completion(false)
                 
             case .success(let data):
-                print("Successfully performed /createRecording request")
+                print("Successfully performed /createMeta request")
                 print(data)
-                completion(true)
             }
         }
     }
-    
-    
-    
     
     func ping(completion: @escaping ((Bool) -> Void)) {
         print("Pinging server...")
@@ -127,7 +194,7 @@ class BufferAPIFunctions {
         var request = URLRequest(url: URL(string: getHost() + "/ping")!)
         request.method = .head
         
-        AF.request(request).responseJSON { response in
+        AF.request(request).responseString { response in
             switch response.result {
                 
             case .failure(let error):

@@ -44,13 +44,13 @@ class SearchSubjectsViewController: UIViewController, UITableViewDelegate, UITab
     //MARK: Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "startRecordingFromSearch" {
+        /*if segue.identifier == "startRecordingFromSearch" {
             let nc = segue.destination as! UINavigationController
             let vc = nc.viewControllers.first as! RecordingViewController
             self.selection!.subjectId = self.subjectID
             vc.recording = Recording(subject_id: self.subjectID, fall_time: MyConstants.fallTime, fall_type: self.selection!.fallType, recording_duration: MyConstants.recordingLength, ground_time: Double([2,2,2,2,3,3,3,3,4,4,4,5,5,5,6,6,7,7,8][Int.random(in: 0...18)]), action: self.selection!.action, phone_placement: self.selection!.phonePlacement, p_ecg: [], p_hr: [], p_contact: [], p_acc_x: [], p_acc_y: [], p_acc_z: [], acc_x: [], acc_y: [], acc_z: [], gyr_x: [], gyr_y: [], gyr_z: [], gra_x: [], gra_y: [], gra_z: [], mag_x: [], mag_y: [], mag_z: [], att_roll: [], att_pitch: [], att_yaw: [], delta_heading: [], timestamps: [])
             vc.segue = "unwindToSearchRecordings"
-        }
+        }*/
     }
     
     @IBAction func unwindToSearchRecordings(segue: UIStoryboardSegue) {

@@ -9,11 +9,14 @@ import UIKit
 import SwiftUI
 import AVFoundation
 import CoreMotion
+import FirebaseFirestore
 
 class RecordingViewController: UIViewController {
     
     //MARK: Input Properties
     @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var stopButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
     
     //MARK: View Properties
     @IBOutlet weak var dataStackView: UIStackView!
@@ -21,8 +24,6 @@ class RecordingViewController: UIViewController {
     
     //MARK: Labels
     @IBOutlet weak var timerLabel: UILabel!
-    @IBOutlet weak var actionLabel: UILabel!
-    @IBOutlet weak var fallLabel: UILabel!
     @IBOutlet weak var accelerometerLabel: UILabel!
     @IBOutlet weak var gyroLabel: UILabel!
     @IBOutlet weak var magnetometerLabel: UILabel!
@@ -34,16 +35,23 @@ class RecordingViewController: UIViewController {
     var count = 4.0
     var isRecording = false
     var isComplete = false
+    var shouldStop = false
     var timer : Timer? = nil
-
-    //MARK: Segue Data
-    var segue = ""
+    var duration = 0.0
     
     //MARK: Motion based Variables
     let motionManager = CMMotionManager()
-    var recording: Recording? = nil
     
     var lastHeading = -999.0
+    
+    //MARK: Fall based variables
+    var numFalls = 0
+    var fallTime = -1.0
+    var groundTime = -1.0
+    
+    //MARK: Server variables
+    var buffer = BufferAPI()
+    var currChunk = RecordingChunk(recording_id: "", chunk_index: -1)
     
 
     override func viewDidLoad() {
@@ -53,27 +61,15 @@ class RecordingViewController: UIViewController {
         self.dataStackView.isHidden = true
         self.saveButton.isHidden = true
         self.hrContainerView.isHidden = true
+        self.stopButton.isHidden = true
+        self.stopButton.isHidden = true
+        
         self.timerLabel.textColor = UIColor.black
         let timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
         RunLoop.current.add(timer, forMode: .common)
         self.timer = timer
         
-        if self.recording != nil {
-            let actionTitle = NSMutableAttributedString(string: "Action: ", attributes: MyConstants.bold)
-            let actionValue = NSAttributedString(string: self.recording!.action, attributes: MyConstants.normal)
-            actionTitle.append(actionValue)
-            self.actionLabel.attributedText = actionTitle
-            
-            let fallTitle = NSMutableAttributedString(string: "Fall: ", attributes: MyConstants.bold)
-            let fallValue = NSAttributedString(string: self.recording!.fall_type != "" ? self.recording!.fall_type : "none", attributes: MyConstants.normal)
-            fallTitle.append(fallValue)
-            self.fallLabel.attributedText = fallTitle
-        }
-        
-        if self.recording!.fall_type == "" {
-            self.recording!.fall_time = -999
-            self.recording!.ground_time = -999
-        }
+        self.currChunk = RecordingChunk(recording_id: self.buffer.postQueue!.meta._id, chunk_index: 0)
         
         //Motion setup
         DispatchQueue.global().async {
@@ -92,12 +88,6 @@ class RecordingViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         MyConstants.polarManager.isRecording = false
-        
-        if segue.identifier == "returnToSearchPage" {
-            let nc = segue.destination as! UINavigationController
-            let vc = nc.viewControllers.first as! SearchSubjectsViewController
-            vc.subjectID = self.recording!.subject_id
-        }
     }
 
     @IBSegueAction func addPolarDataSUI(_ coder: NSCoder) -> UIViewController? {
@@ -108,34 +98,23 @@ class RecordingViewController: UIViewController {
     
     @IBAction func clickFinishRecording(_ sender: UIButton) {
         //Add to global stats
-        /*
-        Firestore.firestore().collection("stats").document("root").getDocument { docSnapshot, e in
-            
+        Firestore.firestore().collection("stats").document("root2").getDocument { docSnapshot, e in
             if e == nil && docSnapshot != nil {
-                Firestore.firestore().collection("stats").document("root").updateData([formatStat(action: self.recordingInfo!.action, fall: self.recordingInfo!.fallType): docSnapshot!.data()![formatStat(action: self.recordingInfo!.action, fall: self.recordingInfo!.fallType)] as! Int + 1])
+                Firestore.firestore().collection("stats").document("root2").updateData(["num_recordings": docSnapshot!.data()!["num_recordings"] as! Int + 1, "total_duration": docSnapshot!.data()!["total_duration"] as! Int + Int(self.duration), "num_falls": docSnapshot!.data()!["num_falls"] as! Int + self.numFalls])
             }
         }
-         */
 
         //Add to subject stats
-        /*
-        Firestore.firestore().collection("subjects").document(self.recordingInfo!.subjectId).collection("recordingStats").document("root").getDocument { docSnapshot, e in
-            
+        Firestore.firestore().collection("subjects").document(self.buffer.postQueue!.meta.subject_id).getDocument { docSnapshot, e in
             if e == nil && docSnapshot != nil {
-                Firestore.firestore().collection("subjects").document(self.recordingInfo!.subjectId).collection("recordingStats").document("root").updateData([formatStat(action: self.recordingInfo!.action, fall: self.recordingInfo!.fallType): docSnapshot!.data()![formatStat(action: self.recordingInfo!.action, fall: self.recordingInfo!.fallType)] as! Int + 1])
+                Firestore.firestore().collection("subjects").document(self.buffer.postQueue!.meta.subject_id).updateData(["num_recordings": docSnapshot!.data()!["num_recordings"] as! Int + 1, "total_duration": docSnapshot!.data()!["total_duration"] as! Int + Int(self.duration), "num_falls": docSnapshot!.data()!["num_falls"] as! Int + self.numFalls])
             }
-        }*/
-
-        //let collectionName = formatStat(action: self.recording!.action, fall: self.recording!.fall_type)
+        }
         
         //Add recording
-        APIFunctions.functions.createRecording(recording: self.recording!)
-        
-        /*
-        Firestore.firestore().collection("recordings").document("root").collection(collectionName).addDocument(data: ["subjectID": self.recordingInfo!.subjectId, "includesFall": self.recordingInfo!.includesFall, "fallType": self.recordingInfo!.fallType, "accelerometer-x": self.accDataX, "accelerometer-y": self.accDataY, "accelerometer-z": self.accDataZ, "gyroscope-x": self.gyroDataX, "gyroscope-y": self.gyroDataY, "gyroscope-z": self.gyroDataZ, "magnetometer-x": self.magDataX, "magnetometer-y": self.magDataY, "magnetometer-z": self.magDataZ, "magnetometer-acc": self.magDataAcc, "attitude-roll": self.attDataRoll, "attitude-pitch": self.attDataPitch, "attitude-yaw": self.attDataYaw, "heading": self.headingData, "gravity-x": self.gravDataX, "gravity-y": self.gravDataY, "gravity-z": self.gravDataZ, "recording-length": self.timeLimit, "fall-time": self.fallTime, "ground-time": self.groundTime, "hr-bpm": self.hrData, "hr-rrs": self.hr_rrsData, "hr-rrsms": self.hr_rrsmsData, "hr-rss-peak": self.hr_rrs_peakData, "hr-rssms-peak": self.hr_rrsms_peakData, "hr-contact": self.hr_contactData, "hr-ecg": self.ecgData, "hr-accelerometer-x": self.pAccDataX, "hr-accelerometer-y": self.pAccDataY, "hr-accelerometer-z": self.pAccDataZ])
-         */
+        self.buffer.sendRemainingChunks()
 
-        self.performSegue(withIdentifier: self.segue, sender: self)
+        self.performSegue(withIdentifier: "unwindToPrepareRecording", sender: self)
     }
     
     @IBAction func clickCancelRecording(_ sender: UIButton) {
@@ -143,95 +122,95 @@ class RecordingViewController: UIViewController {
         self.isComplete = true
         self.count = 0
         self.isRecording = false
-        self.performSegue(withIdentifier: self.segue, sender: self)
+        self.performSegue(withIdentifier: "unwindToPrepareRecording", sender: self)
+    }
+    
+    @IBAction func clickStopRecording(_ sender: UIButton) {
+        if (round(self.count*100)/100).truncatingRemainder(dividingBy: 1) == 0 {
+            stopRecording()
+        } else {
+            self.shouldStop = true
+        }
     }
     
     
     //MARK: Private Methods
     
+    func stopRecording() {
+        AudioServicesPlayAlertSound(SystemSoundID(1114))
+        self.isComplete = true
+        self.timerLabel.text = "Recording complete!"
+        self.timerLabel.textColor = UIColor.black
+        self.motionManager.stopDeviceMotionUpdates()
+        self.dataStackView.isHidden = true
+        self.hrContainerView.isHidden = true
+        self.timer!.invalidate()
+        self.timer = nil
+        MyConstants.polarManager.isRecording = false
+        MyConstants.polarManager.isLive = false
+
+        self.saveButton.isHidden = false
+        self.stopButton.isHidden = true
+        self.cancelButton.isHidden = false
+    }
+    
+    
     @objc func updateTimer() {
         if !self.isComplete {
             if self.isRecording {
+                self.storeData()
                 
-                if self.recording!.fall_type != "" {
-                    if round(self.count*100)/100 == self.recording!.fall_time {
+                // Push chunk
+                if self.count > 4 && (round(self.count*100)/100).truncatingRemainder(dividingBy: 5) == 0 {
+                    self.buffer.pushOntoQueue(chunk: self.currChunk)
+                    self.currChunk = RecordingChunk(recording_id: self.currChunk.recording_id, chunk_index: self.currChunk.chunk_index + 1)
+                }
+                
+                // Check for falls
+                if self.fallTime != -1 && round(self.count*100)/100 >= self.fallTime {
+                    if round(self.count*100)/100 == self.fallTime {
                         AudioServicesPlayAlertSound(SystemSoundID(1322))
-                    }
-                    
-                    if round(self.count*100)/100 == (self.recording!.fall_time - self.recording!.ground_time) {
-                        AudioServicesPlayAlertSound(SystemSoundID(1321))
-                    }
-                }
-                
-                if self.count >= 0.1 {
-                    self.count = self.count - 0.1
-                    self.timerLabel.text = String(Double(round(1000*count)/1000)) + " s"
-                    
-                    self.storeData()
-                    
-                } else {
-                    AudioServicesPlayAlertSound(SystemSoundID(1114))
-                    self.isComplete = true
-                    self.timerLabel.text = "Recording complete!"
-                    self.timerLabel.textColor = UIColor.black
-                    self.motionManager.stopDeviceMotionUpdates()
-                    self.dataStackView.isHidden = true
-                    self.hrContainerView.isHidden = true
-                    self.timer!.invalidate()
-                    self.timer = nil
-                    MyConstants.polarManager.isRecording = false
-                    MyConstants.polarManager.isLive = false
-                    self.recording!.p_hr = MyConstants.polarManager.hr
-                    self.recording!.p_ecg = MyConstants.polarManager.ecg
-                    self.recording!.p_contact = MyConstants.polarManager.contact
-                    self.recording!.p_acc_x = MyConstants.polarManager.acc_x
-                    self.recording!.p_acc_y = MyConstants.polarManager.acc_y
-                    self.recording!.p_acc_z = MyConstants.polarManager.acc_z
-                    
-                    print(self.recording!.p_hr.count)
-                    print(self.recording!.p_ecg.count)
-                    print(self.recording!.p_acc_x.count)
-                    print(self.recording!.p_acc_y.count)
-                    print(self.recording!.p_acc_z.count)
-                    print("non-polar length")
-                    print(self.recording!.acc_x.count)
-                    print()
-                    /*print(self.pAccDataX)
-                    print(self.ecgData)
-                    print(self.hrData)
-                    print(self.hr_rrsData)
-                    print(self.hr_rrsmsData)
-                    print(self.hr_rrs_peakData)
-                    print(self.hr_rrsms_peakData)
-                    print(self.hr_contactData)
-                    print()*/
-                    
-                    if !(self.recording!.acc_x.count == self.recording!.timestamps.count && self.recording!.acc_x.count == self.recording!.gyr_x.count && self.recording!.timestamps.count == self.recording!.gyr_x.count && self.recording!.timestamps.count == self.recording!.mag_x.count && self.recording!.mag_x.count == self.recording!.att_roll.count && self.recording!.att_roll.count == self.recording!.gra_x.count && self.recording!.gra_x.count == self.recording!.delta_heading.count) {
-                        print(self.recording!.acc_x.count)
-                        print(self.recording!.gyr_x.count)
-                        print(self.recording!.mag_x.count)
-                        print(self.recording!.timestamps.count)
-                        self.navigationItem.prompt = "Recording error: please try again"
                     } else {
-                        self.saveButton.isHidden = false
+                        self.currChunk.labels.append(true)
                     }
-                }
-                
-            } else {
-                
-                if self.count >= 0.1 {
-                    self.count = self.count - 0.1
-                    self.timerLabel.text = "Recording starting in...\n " + String(Int(floor(count)))
+                    
+                    if round(self.count*100)/100 == (self.fallTime - self.groundTime) {
+                        AudioServicesPlayAlertSound(SystemSoundID(1321))
+                        self.fallTime = -1.0
+                        self.groundTime = -1.0
+                    }
+                    
+                // If no falls set the fallTime and groundTime
                 } else {
-                    AudioServicesPlayAlertSound(SystemSoundID(1113))
-                    self.count = self.recording!.recording_duration
-                    self.isRecording = true
-                    self.dataStackView.isHidden = false
-                    self.hrContainerView.isHidden = false
-                    self.timerLabel.textColor = UIColor.systemRed
-                    self.timerLabel.text = String(Double(round(1000*count)/1000)) + " s"
-                    MyConstants.polarManager.isRecording = true
+                    self.currChunk.labels.append(false)
+                    self.fallTime = self.count + Double([10,11,11,12,12,13,13,13,14][Int.random(in: 0...8)])
+                    self.groundTime = self.fallTime + Double([2,2,3,3,3,3,3,4,4,4,4,5,5,5,6,6,7,7,8][Int.random(in: 0...18)])
                 }
+                
+                // Checks if recording should be stopped
+                if self.shouldStop && (round(self.count*100)/100).truncatingRemainder(dividingBy: 1) == 0 {
+                    stopRecording()
+                } else {
+                    self.count += 0.1
+                    self.timerLabel.text = String(Double(round(1000*count)/1000)) + " s"
+                }
+            
+            // Recording about to start
+            } else if self.count >= 0.1 {
+                self.count = self.count - 0.1
+                self.timerLabel.text = "Recording starting in...\n " + String(Int(floor(count)))
+            
+            // Recording starts
+            } else {
+                AudioServicesPlayAlertSound(SystemSoundID(1113))
+                self.count = 0
+                self.isRecording = true
+                self.dataStackView.isHidden = false
+                self.hrContainerView.isHidden = false
+                self.stopButton.isHidden = false
+                self.timerLabel.textColor = UIColor.systemRed
+                self.timerLabel.text = String(Double(round(1000*count)/1000)) + " s"
+                MyConstants.polarManager.isRecording = true
             }
         }
     }
@@ -259,37 +238,35 @@ class RecordingViewController: UIViewController {
                 
                 self.gravityLabel.text = "Gravity: X = " + String(format: "%.2f", motionData.gravity.x) + "  Y = " + String(format: "%.2f", motionData.gravity.y) + "  Z = " + String(format: "%.2f", motionData.gravity.z)
                 
+                self.currChunk.acc_x.append(motionData.userAcceleration.x)
+                self.currChunk.acc_y.append(motionData.userAcceleration.y)
+                self.currChunk.acc_z.append(motionData.userAcceleration.z)
                 
-                self.recording!.acc_x.append(motionData.userAcceleration.x)
-                self.recording!.acc_y.append(motionData.userAcceleration.y)
-                self.recording!.acc_z.append(motionData.userAcceleration.z)
+                self.currChunk.gyr_x.append(motionData.rotationRate.x)
+                self.currChunk.gyr_y.append(motionData.rotationRate.y)
+                self.currChunk.gyr_z.append(motionData.rotationRate.z)
                 
-                self.recording!.gyr_x.append(motionData.rotationRate.x)
-                self.recording!.gyr_y.append(motionData.rotationRate.y)
-                self.recording!.gyr_z.append(motionData.rotationRate.z)
+                self.currChunk.mag_x.append(motionData.magneticField.field.x)
+                self.currChunk.mag_y.append(motionData.magneticField.field.y)
+                self.currChunk.mag_z.append(motionData.magneticField.field.z)
                 
-                self.recording!.mag_x.append(motionData.magneticField.field.x)
-                self.recording!.mag_y.append(motionData.magneticField.field.y)
-                self.recording!.mag_z.append(motionData.magneticField.field.z)
-                //self.magDataAcc.append(Double(motionData.magneticField.accuracy.rawValue))
-                
-                self.recording!.att_roll.append(motionData.attitude.roll)
-                self.recording!.att_pitch.append(motionData.attitude.pitch)
-                self.recording!.att_yaw.append(motionData.attitude.yaw)
+                self.currChunk.att_roll.append(motionData.attitude.roll)
+                self.currChunk.att_pitch.append(motionData.attitude.pitch)
+                self.currChunk.att_yaw.append(motionData.attitude.yaw)
                 
                 if self.lastHeading == -999 {
-                    self.recording!.delta_heading.append(0.0)
+                    self.currChunk.delta_heading.append(0.0)
                     self.lastHeading = motionData.heading
                 } else {
-                    self.recording!.delta_heading.append(motionData.heading - self.lastHeading)
+                    self.currChunk.delta_heading.append(motionData.heading - self.lastHeading)
                     self.lastHeading = motionData.heading
                 }
                 
-                self.recording!.gra_x.append(motionData.gravity.x)
-                self.recording!.gra_y.append(motionData.gravity.y)
-                self.recording!.gra_z.append(motionData.gravity.z)
+                self.currChunk.gra_x.append(motionData.gravity.x)
+                self.currChunk.gra_y.append(motionData.gravity.y)
+                self.currChunk.gra_z.append(motionData.gravity.z)
                 
-                self.recording!.timestamps.append(self.count)
+                self.currChunk.appendPolarData(manager: MyConstants.polarManager)
             }
         } else {
             print("Stopping deviceMotion updates")
