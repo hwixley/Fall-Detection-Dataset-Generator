@@ -184,7 +184,7 @@ class RecordingViewController: UIViewController {
                 // If no falls set the fallTime and groundTime
                 } else {
                     self.currChunk.labels.append(false)
-                    self.fallTime = self.count + Double([10,11,11,12,12,13,13,13,14][Int.random(in: 0...8)])
+                    self.fallTime = self.count + Double([8,9,9,10,10,11,11,11,12][Int.random(in: 0...8)])
                     self.groundTime = self.fallTime + Double([2,2,3,3,3,3,3,4,4,4,4,5,5,5,6,6,7,7,8][Int.random(in: 0...18)])
                 }
                 
@@ -205,9 +205,11 @@ class RecordingViewController: UIViewController {
             } else if self.count >= 0.1 {
                 self.count = self.count - 0.1
                 self.timerLabel.text = "Recording starting in...\n " + String(Int(floor(count)))
+                MyConstants.polarManager.isLive = true
             
             // Recording starts
             } else {
+                MyConstants.polarManager.isRecording = true
                 AudioServicesPlayAlertSound(SystemSoundID(1113))
                 self.count = 0
                 self.isRecording = true
@@ -216,7 +218,6 @@ class RecordingViewController: UIViewController {
                 self.stopButton.isHidden = false
                 self.timerLabel.textColor = UIColor.systemRed
                 self.timerLabel.text = String(Double(round(1000*count)/1000)) + " s"
-                MyConstants.polarManager.isRecording = true
             }
         }
     }
