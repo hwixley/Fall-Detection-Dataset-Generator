@@ -47,6 +47,7 @@ class RecordingViewController: UIViewController {
     var numFalls = 0
     var fallTime = -1.0
     var groundTime = -1.0
+    var lastCount = 0
     
     //MARK: Server variables
     var buffer = BufferAPI()
@@ -78,6 +79,13 @@ class RecordingViewController: UIViewController {
                 if (self.motionManager.isDeviceMotionAvailable) {
                     self.motionManager.deviceMotionUpdateInterval = 0.1
                     self.motionManager.showsDeviceMovementDisplay = true
+                }
+                
+                if !MyConstants.polarManager.ecgEnabled {
+                    MyConstants.polarManager.ecgToggle()
+                }
+                if !MyConstants.polarManager.accEnabled {
+                    MyConstants.polarManager.accToggle()
                 }
             }
         }
@@ -159,16 +167,16 @@ class RecordingViewController: UIViewController {
         if !self.isComplete {
             if self.isRecording {
                 self.storeData()
-                
-                // Push chunk
-                if self.count > 4 && (round(self.count*100)/100).truncatingRemainder(dividingBy: 5) == 0 {
-                    self.buffer.pushOntoQueue(chunk: self.currChunk)
-                    self.currChunk = RecordingChunk(recording_id: self.currChunk.recording_id, chunk_index: self.currChunk.chunk_index + 1)
-                }
+                /*print(self.count)
+                print(self.currChunk.p_acc_x.count)
+                print(self.currChunk.p_acc_x.count - self.lastCount)
+                self.lastCount = self.currChunk.p_acc_x.count
+                print()*/
                 
                 // Check for falls
                 if self.fallTime != -1 && round(self.count*100)/100 >= self.fallTime {
                     if round(self.count*100)/100 == self.fallTime {
+                        self.currChunk.labels.append(false)
                         AudioServicesPlayAlertSound(SystemSoundID(1322))
                         self.numFalls += 1
                     } else {
@@ -177,15 +185,28 @@ class RecordingViewController: UIViewController {
                     
                     if round(self.count*100)/100 == self.groundTime {
                         AudioServicesPlayAlertSound(SystemSoundID(1321))
-                        self.fallTime = -1.0
-                        self.groundTime = -1.0
+                        self.fallTime = self.count + Double([8,9,9,10,10,11,11,11,12][Int.random(in: 0...8)])
+                        self.groundTime = self.fallTime + Double([2,2,3,3,3,3,3,4,4,4,4,5,5,5,6,6,7,7,8][Int.random(in: 0...18)])
                     }
                     
-                // If no falls set the fallTime and groundTime
-                } else {
+                // If no falls set, set the fallTime and groundTime
+                } else if self.fallTime == -1 {
                     self.currChunk.labels.append(false)
                     self.fallTime = self.count + Double([8,9,9,10,10,11,11,11,12][Int.random(in: 0...8)])
                     self.groundTime = self.fallTime + Double([2,2,3,3,3,3,3,4,4,4,4,5,5,5,6,6,7,7,8][Int.random(in: 0...18)])
+                    
+                // If falls set in future
+                } else {
+                    self.currChunk.labels.append(false)
+                }
+                
+                // Push chunk
+                if self.count > 4 && (round(self.count*100)/100).truncatingRemainder(dividingBy: 5) == 0 {
+                    print(self.currChunk.p_ecg.count)
+                    print(self.currChunk.p_acc_x.count)
+                    print(self.currChunk.labels.count)
+                    self.buffer.pushOntoQueue(chunk: self.currChunk)
+                    self.currChunk = RecordingChunk(recording_id: self.currChunk.recording_id, chunk_index: self.currChunk.chunk_index + 1)
                 }
                 
                 // Checks if recording should be stopped
@@ -211,7 +232,7 @@ class RecordingViewController: UIViewController {
             } else {
                 MyConstants.polarManager.isRecording = true
                 AudioServicesPlayAlertSound(SystemSoundID(1113))
-                self.count = 0
+                self.count = 0.1
                 self.isRecording = true
                 self.dataStackView.isHidden = false
                 self.hrContainerView.isHidden = false

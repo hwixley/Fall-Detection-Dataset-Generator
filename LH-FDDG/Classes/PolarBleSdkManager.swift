@@ -22,6 +22,7 @@ class PolarBleSdkManager : ObservableObject {
     private var ppgDisposable: Disposable?
     private var ppiDisposable: Disposable?
     private var deviceId = MyConstants.polarDeviceID
+    private var customSettings: PolarSensorSetting = PolarSensorSetting([PolarSensorSetting.SettingType.sampleRate: 100, PolarSensorSetting.SettingType.range: 4, PolarSensorSetting.SettingType.resolution: 16])
     
     @Published private(set) var bluetoothPowerOn: Bool
     @Published private(set) var broadcastEnabled: Bool = false
@@ -76,11 +77,13 @@ class PolarBleSdkManager : ObservableObject {
         }
     }
     
-    func resetData() {
+    func resetData(resetAcc: Bool = true) {
         self.ecg = []
-        self.acc_x = []
-        self.acc_y = []
-        self.acc_z = []
+        if resetAcc {
+            self.acc_x = []
+            self.acc_y = []
+            self.acc_z = []
+        }
         self.contact = []
     }
     
@@ -218,7 +221,7 @@ class PolarBleSdkManager : ObservableObject {
             accDisposable = api.requestStreamSettings(deviceId, feature: DeviceStreamingFeature.acc)
                 .asObservable()
                 .flatMap({ (settings) -> Observable<PolarAccData> in
-                    NSLog("settings: \(settings.settings)")
+                    NSLog("settings: \(settings.maxSettings())")
                     return self.api.startAccStreaming(self.deviceId, settings: settings.maxSettings())
                 })
                 .observe(on: MainScheduler.instance).subscribe{ e in
