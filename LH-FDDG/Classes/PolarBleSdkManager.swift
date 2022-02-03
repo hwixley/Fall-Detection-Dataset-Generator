@@ -59,7 +59,12 @@ class PolarBleSdkManager : ObservableObject {
     @Published var isRecording: Bool = false {
         didSet {
             if isRecording {
-                resetData()
+                self.ecg = []
+                self.acc_x = []
+                self.acc_y = []
+                self.acc_z = []
+                self.contact = []
+                self.hr = []
             }
         }
     }
@@ -78,11 +83,13 @@ class PolarBleSdkManager : ObservableObject {
     }
     
     func resetData(resetAcc: Bool = true) {
-        self.ecg = []
+        self.ecg = Array(self.ecg.suffix(from: self.ecg.count > 650 ? 650 : self.ecg.endIndex))
+        self.hr = Array(self.hr.suffix(from: self.hr.count > 5 ? 5 : self.hr.endIndex))
+        
         if resetAcc {
-            self.acc_x = []
-            self.acc_y = []
-            self.acc_z = []
+            self.acc_x = Array(self.acc_x.suffix(from: self.acc_x.count > 1000 ? 1000 : self.acc_x.endIndex))
+            self.acc_y = Array(self.acc_y.suffix(from: self.acc_y.count > 1000 ? 1000 : self.acc_y.endIndex))
+            self.acc_z = Array(self.acc_z.suffix(from: self.acc_z.count > 1000 ? 1000 : self.acc_z.endIndex))
         }
         self.contact = []
     }

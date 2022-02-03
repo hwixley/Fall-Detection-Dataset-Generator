@@ -72,6 +72,9 @@ class RecordingViewController: UIViewController {
         
         self.currChunk = RecordingChunk(recording_id: self.buffer.postQueue!.meta._id, chunk_index: 0)
         
+        self.fallTime = 5.0 + Double([8,9,9,10,10,11,11,11,12][Int.random(in: 0...8)])
+        self.groundTime = self.fallTime + Double([3,3,3,3,3,4,4,4,4,5,5,5,6,6,7,7][Int.random(in: 0...15)])
+        
         //Motion setup
         DispatchQueue.global().async {
 
@@ -174,8 +177,8 @@ class RecordingViewController: UIViewController {
                 print()*/
                 
                 // Check for falls
-                if self.fallTime != -1 && round(self.count*100)/100 >= self.fallTime {
-                    if round(self.count*100)/100 == self.fallTime {
+                if round(self.count*100)/100 >= round(self.fallTime*100)/100 {
+                    if round(self.count*100)/100 == round(self.fallTime*100)/100 {
                         self.currChunk.labels.append(false)
                         AudioServicesPlayAlertSound(SystemSoundID(1322))
                         self.numFalls += 1
@@ -183,18 +186,13 @@ class RecordingViewController: UIViewController {
                         self.currChunk.labels.append(true)
                     }
                     
-                    if round(self.count*100)/100 == self.groundTime {
+                    if round(self.count*100)/100 == round(self.groundTime*100)/100 {
                         AudioServicesPlayAlertSound(SystemSoundID(1321))
                         self.fallTime = self.count + Double([8,9,9,10,10,11,11,11,12][Int.random(in: 0...8)])
-                        self.groundTime = self.fallTime + Double([2,2,3,3,3,3,3,4,4,4,4,5,5,5,6,6,7,7,8][Int.random(in: 0...18)])
+                        self.groundTime = self.fallTime + Double([3,3,3,3,3,4,4,4,4,5,5,5,6,6,7,7][Int.random(in: 0...15)])
+                        print(self.fallTime)
+                        print(self.groundTime)
                     }
-                    
-                // If no falls set, set the fallTime and groundTime
-                } else if self.fallTime == -1 {
-                    self.currChunk.labels.append(false)
-                    self.fallTime = self.count + Double([8,9,9,10,10,11,11,11,12][Int.random(in: 0...8)])
-                    self.groundTime = self.fallTime + Double([2,2,3,3,3,3,3,4,4,4,4,5,5,5,6,6,7,7,8][Int.random(in: 0...18)])
-                    
                 // If falls set in future
                 } else {
                     self.currChunk.labels.append(false)
@@ -205,6 +203,14 @@ class RecordingViewController: UIViewController {
                     print(self.currChunk.p_ecg.count)
                     print(self.currChunk.p_acc_x.count)
                     print(self.currChunk.labels.count)
+                    self.currChunk.p_ecg = Array(MyConstants.polarManager.ecg.prefix(650))
+                    self.currChunk.p_contact = MyConstants.polarManager.contact
+                    self.currChunk.p_hr = Array(MyConstants.polarManager.hr.prefix(5))
+                    self.currChunk.p_acc_x = Array(MyConstants.polarManager.acc_x.prefix(1000))
+                    self.currChunk.p_acc_y = Array(MyConstants.polarManager.acc_y.prefix(1000))
+                    self.currChunk.p_acc_z = Array(MyConstants.polarManager.acc_z.prefix(1000))
+                    MyConstants.polarManager.resetData()
+                    
                     self.buffer.pushOntoQueue(chunk: self.currChunk)
                     self.currChunk = RecordingChunk(recording_id: self.currChunk.recording_id, chunk_index: self.currChunk.chunk_index + 1)
                 }
@@ -293,8 +299,16 @@ class RecordingViewController: UIViewController {
                 self.currChunk.gra_x.append(motionData.gravity.x)
                 self.currChunk.gra_y.append(motionData.gravity.y)
                 self.currChunk.gra_z.append(motionData.gravity.z)
+
+                /*
+                self.currChunk.p_ecg.append(contentsOf: MyConstants.polarManager.ecg.prefix(13))
+                self.currChunk.p_hr.append(contentsOf: MyConstants.polarManager.hr)
+                self.currChunk.p_acc_x.append(contentsOf: MyConstants.polarManager.acc_x.prefix(20))
+                self.currChunk.p_acc_y.append(contentsOf: MyConstants.polarManager.acc_y.prefix(20))
+                self.currChunk.p_acc_z.append(contentsOf: MyConstants.polarManager.acc_z.prefix(20))
+                self.currChunk.p_contact.append(contentsOf: MyConstants.polarManager.contact)*/
                 
-                self.currChunk.appendPolarData(manager: MyConstants.polarManager)
+                //MyConstants.polarManager.resetData()
             }
         } else {
             print("Stopping deviceMotion updates")

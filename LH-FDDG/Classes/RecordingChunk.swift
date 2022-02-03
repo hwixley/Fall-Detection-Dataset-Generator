@@ -50,17 +50,6 @@ struct RecordingChunk: Encodable, Decodable {
     func parseHeaders() -> [String: AnyObject] {
         return ["_id": _id as AnyObject, "recording_id": recording_id as AnyObject, "chunk_index": chunk_index as AnyObject, "labels": labels as AnyObject, "p_ecg": p_ecg as AnyObject, "p_hr": p_hr as AnyObject, "p_contact": p_contact as AnyObject, "p_acc_x": p_acc_x as AnyObject, "p_acc_y": p_acc_y as AnyObject, "p_acc_z": p_acc_z as AnyObject, "acc_x": acc_x as AnyObject, "acc_y": acc_y as AnyObject, "acc_z": acc_z as AnyObject, "gyr_x": gyr_x as AnyObject, "gyr_y": gyr_y as AnyObject, "gyr_z": gyr_z as AnyObject, "gra_x": gra_x as AnyObject, "gra_y": gra_y as AnyObject, "gra_z": gra_z as AnyObject, "mag_x": mag_x as AnyObject, "mag_y": mag_y as AnyObject, "mag_z": mag_z as AnyObject, "att_roll": att_roll as AnyObject, "att_pitch": att_pitch as AnyObject, "att_yaw": att_yaw as AnyObject, "delta_heading": delta_heading as AnyObject]
     }
-    
-    mutating func appendPolarData(manager: PolarBleSdkManager) {
-        self.p_ecg.append(contentsOf: manager.ecg)
-        self.p_hr.append(contentsOf: manager.hr)
-        self.p_acc_x.append(contentsOf: manager.acc_x)
-        self.p_acc_y.append(contentsOf: manager.acc_y)
-        self.p_acc_z.append(contentsOf: manager.acc_z)
-        self.p_contact.append(contentsOf: manager.contact)
-        
-        manager.resetData()
-    }
 }
 
 struct PostQueue {

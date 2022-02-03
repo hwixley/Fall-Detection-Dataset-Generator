@@ -30,6 +30,9 @@ struct MyConstants {
     static var user: User? = nil
     static var isServerReachable: Bool? = nil
     static var isPingingServer = false
+    
+    static var leftoverChunks: [RecordingChunk] = []
+    static var leftoverMetas: [RecordingMeta] = []
 }
 
 
