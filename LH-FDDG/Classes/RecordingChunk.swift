@@ -48,13 +48,13 @@ struct RecordingChunk: Encodable, Decodable {
     var delta_heading: [Double] = []
     
     func parseHeaders() -> [String: AnyObject] {
-        return ["_id": _id as AnyObject, "recording_id": recording_id as AnyObject, "chunk_index": chunk_index as AnyObject, "labels": labels as AnyObject, "p_ecg": p_ecg as AnyObject, "p_hr": p_hr as AnyObject, "p_contact": p_contact as AnyObject, "p_acc_x": p_acc_x as AnyObject, "p_acc_y": p_acc_y as AnyObject, "p_acc_z": p_acc_z as AnyObject, "acc_x": acc_x as AnyObject, "acc_y": acc_y as AnyObject, "acc_z": acc_z as AnyObject, "gyr_x": gyr_x as AnyObject, "gyr_y": gyr_y as AnyObject, "gyr_z": gyr_z as AnyObject, "gra_x": gra_x as AnyObject, "gra_y": gra_y as AnyObject, "gra_z": gra_z as AnyObject, "mag_x": mag_x as AnyObject, "mag_y": mag_y as AnyObject, "mag_z": mag_z as AnyObject, "att_roll": att_roll as AnyObject, "att_pitch": att_pitch as AnyObject, "att_yaw": att_yaw as AnyObject, "delta_heading": delta_heading as AnyObject]
+        return ["_id": _id as AnyObject, "recording_id": recording_id as AnyObject, "chunk_index": chunk_index as AnyObject, "labels": Array(labels.prefix(50)) as AnyObject, "p_ecg": p_ecg as AnyObject, "p_hr": p_hr as AnyObject, "p_contact": p_contact as AnyObject, "p_acc_x": p_acc_x as AnyObject, "p_acc_y": p_acc_y as AnyObject, "p_acc_z": p_acc_z as AnyObject, "acc_x": Array(acc_x.prefix(50)) as AnyObject, "acc_y": Array(acc_y.prefix(50)) as AnyObject, "acc_z": Array(acc_z.prefix(50)) as AnyObject, "gyr_x": Array(gyr_x.prefix(50)) as AnyObject, "gyr_y": Array(gyr_y.prefix(50)) as AnyObject, "gyr_z": Array(gyr_z.prefix(50)) as AnyObject, "gra_x": Array(gra_x.prefix(50)) as AnyObject, "gra_y": Array(gra_y.prefix(50)) as AnyObject, "gra_z": Array(gra_z.prefix(50)) as AnyObject, "mag_x": Array(mag_x.prefix(50)) as AnyObject, "mag_y": Array(mag_y.prefix(50)) as AnyObject, "mag_z": Array(mag_z.prefix(50)) as AnyObject, "att_roll": Array(att_roll.prefix(50)) as AnyObject, "att_pitch": Array(att_pitch.prefix(50)) as AnyObject, "att_yaw": Array(att_yaw.prefix(50)) as AnyObject, "delta_heading": Array(delta_heading.prefix(50)) as AnyObject]
     }
     
     mutating func resetChunk() {
         self._id = NSUUID().uuidString
         self.chunk_index += 1
-        self.labels = Array(self.labels.suffix(from: 50))
+        self.labels = Array(self.labels.suffix(from: self.labels.count > 50 ? 50 : self.labels.endIndex))
         self.p_ecg = []
         self.p_hr = []
         self.p_contact = []
