@@ -138,7 +138,12 @@ class RecordingViewController: UIViewController {
     
     @IBAction func clickStopRecording(_ sender: UIButton) {
         if (round(self.count*100)/100).truncatingRemainder(dividingBy: 1) == 0 {
+            if self.currChunk.labels.count > 0 {
+                self.buffer.pushOntoQueue(chunk: self.currChunk)
+            }
+            self.buffer.postQueue!.meta.recording_duration = self.count
             stopRecording()
+            
         } else {
             self.shouldStop = true
         }
@@ -209,10 +214,12 @@ class RecordingViewController: UIViewController {
                     self.currChunk.p_acc_x = Array(MyConstants.polarManager.acc_x.prefix(1000))
                     self.currChunk.p_acc_y = Array(MyConstants.polarManager.acc_y.prefix(1000))
                     self.currChunk.p_acc_z = Array(MyConstants.polarManager.acc_z.prefix(1000))
+                    
+                    
                     MyConstants.polarManager.resetData()
                     
                     self.buffer.pushOntoQueue(chunk: self.currChunk)
-                    self.currChunk = RecordingChunk(recording_id: self.currChunk.recording_id, chunk_index: self.currChunk.chunk_index + 1)
+                    self.currChunk.resetChunk()
                 }
                 
                 // Checks if recording should be stopped
