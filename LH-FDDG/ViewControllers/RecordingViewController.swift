@@ -72,7 +72,7 @@ class RecordingViewController: UIViewController {
         
         self.currChunk = RecordingChunk(recording_id: self.buffer.postQueue!.meta._id, chunk_index: 0)
         
-        self.fallTime = 5.0 + Double([8,9,9,10,10,11,11,11,12][Int.random(in: 0...8)])
+        self.fallTime = 5.0 + Double([20,21,22,23,24,26,28,30][Int.random(in: 0...7)])
         self.groundTime = self.fallTime + Double([3,3,3,3,3,4,4,4,4,5,5,5,6,6,7,7][Int.random(in: 0...15)])
         
         //Motion setup
@@ -193,7 +193,7 @@ class RecordingViewController: UIViewController {
                     
                     if round(self.count*100)/100 == round(self.groundTime*100)/100 {
                         AudioServicesPlayAlertSound(SystemSoundID(1321))
-                        self.fallTime = self.count + Double([8,9,9,10,10,11,11,11,12][Int.random(in: 0...8)])
+                        self.fallTime = self.count + Double([20,21,22,23,24,26,28,30][Int.random(in: 0...7)])
                         self.groundTime = self.fallTime + Double([3,3,3,3,3,4,4,4,4,5,5,5,6,6,7,7][Int.random(in: 0...15)])
                         print(self.fallTime)
                         print(self.groundTime)
